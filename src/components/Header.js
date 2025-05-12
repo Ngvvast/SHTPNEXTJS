@@ -3,11 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'; // Import useRouter
 
 const Header = () => {
-  const router = useRouter(); // Initialize useRouter
-  const basePath = router.basePath || ''; // Get basePath
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''; // Added for consistent basePath handling
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobileFactorOpen, setMobileFactorOpen] = useState(false);
@@ -43,11 +42,12 @@ const Header = () => {
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <Image 
-              src="/assets/logos/SHTP-LOGO.png" // Corrected path, assetPrefix will handle /SHTPNEXTJS
+              src={`${basePath}/assets/logos/SHTP-LOGO.png`} // Updated src
               alt="SHTP Logo" 
               width={180} 
               height={40} 
               priority
+              unoptimized={true} // Added unoptimized
             />
           </Link>
         </div>

@@ -5,17 +5,15 @@ import Link from 'next/link';
 import MainLayout from '../../../layouts/MainLayout';
 import { useState } from 'react';
 import { FaShieldAlt, FaUserShield, FaVirus, FaBookOpen, FaExclamationTriangle, FaCheckCircle, FaInfoCircle, FaListAlt, FaBalanceScale, FaExclamationCircle, FaTools, FaFileAlt, FaRegCommentDots, FaLaptopCode, FaUserClock, FaDatabase, FaUserSecret, FaLink } from 'react-icons/fa';
-import { useRouter } from 'next/navigation'; // Import useRouter
 
 export default function Covid19Page() {
-  const router = useRouter(); // Initialize useRouter
-  const basePath = router.basePath || ''; // Get basePath
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   const [urlToCheck, setUrlToCheck] = useState('');
   const [checkResult, setCheckResult] = useState(null);
   const [isChecking, setIsChecking] = useState(false);
   const [activeRiskTab, setActiveRiskTab] = useState('overview');
-  const [activePhishingSubTab, setActivePhishingSubTab] = useState('description'); // New state for Risk 1 sub-tabs
-  const [activeRansomwareSubTab, setActiveRansomwareSubTab] = useState('description'); // New state for Risk 2 sub-tabs
+  const [activePhishingSubTab, setActivePhishingSubTab] = useState('description');
+  const [activeRansomwareSubTab, setActiveRansomwareSubTab] = useState('description');
 
   const riskTabs = [
     { id: 'overview', title: 'Overview', icon: <FaInfoCircle /> },
@@ -42,7 +40,7 @@ export default function Covid19Page() {
 
   const checkPhishingUrl = async () => {
     setIsChecking(true);
-    setCheckResult(null); // Clear previous results
+    setCheckResult(null);
 
     if (!urlToCheck) {
       setCheckResult({ error: 'URL parameter is required' });
@@ -50,22 +48,18 @@ export default function Covid19Page() {
       return;
     }
 
-    // Simplified simulation logic directly in the component
     let isSafe = true;
     let reason = 'Simulated safe response.';
     const urlLower = urlToCheck.toLowerCase();
 
-    // Example of a simple heuristic for simulation
     if (urlLower.includes('phishing') || urlLower.includes('malware') || urlLower.includes('evil')) {
       isSafe = false;
       reason = 'Simulated unsafe URL (contains suspicious keywords).';
     } else if (urlLower.length > 0 && urlLower.length < 10) {
-      // Arbitrary rule for variety in simulation
       isSafe = false;
       reason = 'Simulated unsafe URL (URL too short for this demo).';
     }
 
-    // Simulate a delay
     await new Promise(resolve => setTimeout(resolve, 500));
 
     setCheckResult({
@@ -78,15 +72,15 @@ export default function Covid19Page() {
 
   return (
     <MainLayout>
-      {/* Enhanced Hero Section */}
       <div className="relative bg-gradient-to-br from-blue-700 via-cyan-700 to-blue-800 py-24 mt-16">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src={'/assets/images/hero/background_placeholder.png'}
+            src={`${basePath}/assets/images/hero/background_placeholder.png`}
             alt="COVID-19 Healthcare Cybersecurity"
             fill
             className="object-cover mix-blend-overlay opacity-20"
             priority
+            unoptimized={true}
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -115,7 +109,6 @@ export default function Covid19Page() {
         </div>
       </div>
 
-      {/* Key Statistics Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -135,15 +128,14 @@ export default function Covid19Page() {
         </div>
       </div>
 
-      {/* Navigation Cards */}
       <div className="py-16 bg-white">
         <div className="container mx-auto px-4">          
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { title: 'Overview', description: 'Impact on UK Healthcare', image: '/assets/images/pages/covid19/nav-cards/overview.png', link: '#overview' },
-              { title: 'Risk 1: Phishing', description: 'Social Engineering Analysis', image: '/assets/images/pages/covid19/nav-cards/phishing.png', link: '#risk1-phishing' },
-              { title: 'Risk 2: Ransomware', description: 'Critical Infrastructure Impact', image: '/assets/images/pages/covid19/nav-cards/ransomware.png', link: '#risk2-ransomware' },
-              { title: 'Mitigation', description: 'General Security Measures', image: '/assets/images/pages/covid19/nav-cards/solutions.png', link: '#mitigation' }
+              { title: 'Overview', description: 'Impact on UK Healthcare', image: `${basePath}/assets/images/pages/covid19/nav-cards/overview.png`, link: '#overview' },
+              { title: 'Risk 1: Phishing', description: 'Social Engineering Analysis', image: `${basePath}/assets/images/pages/covid19/nav-cards/phishing.png`, link: '#risk1-phishing' },
+              { title: 'Risk 2: Ransomware', description: 'Critical Infrastructure Impact', image: `${basePath}/assets/images/pages/covid19/nav-cards/ransomware.png`, link: '#risk2-ransomware' },
+              { title: 'Mitigation', description: 'General Security Measures', image: `${basePath}/assets/images/pages/covid19/nav-cards/solutions.png`, link: '#mitigation' }
             ].map((card, index) => (
               <Link 
                 key={index}
@@ -156,6 +148,7 @@ export default function Covid19Page() {
                     alt={card.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    unoptimized={true}
                   />
                 </div>
                 <div className="p-6">
@@ -168,11 +161,9 @@ export default function Covid19Page() {
         </div>
       </div>
 
-      {/* Main Content Sections */}
       <div className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            {/* Overview Section */}
             <section id="overview" className="mb-20 scroll-mt-28">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -191,17 +182,17 @@ export default function Covid19Page() {
                 </div>
                 <div className="relative h-[350px] rounded-lg overflow-hidden shadow-lg">
                   <Image                    
-                    src={'/assets/images/pages/covid19/content/overview.png'}
+                    src={`${basePath}/assets/images/pages/covid19/content/overview.png`}
                     alt="Healthcare Cybersecurity Overview"
                     fill
                     className="object-cover"
+                    unoptimized={true}
                   />
                 </div>
               </div>
             </section>            
             <h2 id="risk-analysis-covid" className="text-4xl font-bold text-gray-900 mb-12 text-center border-t pt-16 scroll-mt-28">COVID-19: Cybersecurity Risk Analysis</h2>
             
-            {/* Interactive Risk Tabs Navigation */}
             <div className="flex flex-wrap justify-center mb-12 gap-2">
               {riskTabs.map((tab) => (
                 <button
@@ -222,11 +213,9 @@ export default function Covid19Page() {
               ))}
             </div>
 
-            {/* Risk 1: Increased Phishing & Social Engineering - RESTRUCTURED & RESTYLED */}
             <section id="risk1-phishing" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl shadow-lg border border-blue-200/50">
               <h3 className="text-3xl font-bold text-blue-700 mb-8 flex items-center"><FaUserShield className="mr-3"/>Risk 1: Increased Phishing & Social Engineering</h3>
               
-              {/* Sub-tabs for Risk 1 */}
               <div className="mb-6 flex flex-wrap gap-2 border-b border-blue-200 pb-4">
                 {phishingSubTabs.map((tab) => (
                   <button
@@ -300,22 +289,20 @@ export default function Covid19Page() {
                   )}
                 </div>
                 <div className="order-2 lg:order-1 relative h-[350px] rounded-lg overflow-hidden shadow-lg">
-                  {/* Image can remain static or change based on sub-tab if desired */}
                   <Image
-                    src={'/assets/images/pages/covid19/content/phishing.png'}
+                    src={`${basePath}/assets/images/pages/covid19/content/phishing.png`}
                     alt="Phishing Attacks in Healthcare during COVID-19"
                     fill
                     className="object-cover"
+                    unoptimized={true}
                   />
                 </div>
               </div>
             </section>
 
-            {/* Risk 2: Ransomware Targeting Critical Infrastructure */}
             <section id="risk2-ransomware" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl shadow-lg border border-blue-200/50">
               <h3 className="text-3xl font-bold text-blue-700 mb-8 flex items-center"><FaVirus className="mr-3"/>Risk 2: Ransomware Targeting Critical Infrastructure</h3>
               
-              {/* Sub-tabs for Risk 2 */}
               <div className="mb-6 flex flex-wrap gap-2 border-b border-blue-200 pb-4">
                 {ransomwareSubTabs.map((tab) => (
                   <button
@@ -390,22 +377,20 @@ export default function Covid19Page() {
                   )}
                 </div>
                 <div className="relative h-[350px] rounded-lg overflow-hidden shadow-lg">
-                   {/* Image can remain static or change based on sub-tab if desired */}
                   <Image
-                    src={'/assets/images/pages/covid19/content/ransomware.png'}
+                    src={`${basePath}/assets/images/pages/covid19/content/ransomware.png`}
                     alt="Ransomware Impact on Healthcare during COVID-19"
                     fill
                     className="object-cover"
+                    unoptimized={true}
                   />
                 </div>
               </div>
             </section>
 
-            {/* CISSP Domain Alignment Section */}
             <section id="cissp-alignment-covid" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gray-50 rounded-xl shadow-lg border border-gray-200/80">
               <h2 className="text-3xl font-bold text-gray-800 mb-10 flex items-center justify-center"><FaBookOpen className="mr-3 text-blue-600"/>CISSP Domain Alignment for COVID-19 Risks</h2>
 
-              {/* CISSP for Risk 1: Phishing */}
               <div className="mb-12">
                 <h3 className="text-2xl font-semibold text-blue-700 mb-6 flex items-center"><FaUserShield className="mr-3"/>Alignment for Risk 1: Increased Phishing & Social Engineering</h3>
                 <div className="prose prose-lg max-w-none prose-strong:text-gray-700">
@@ -421,19 +406,18 @@ export default function Covid19Page() {
                 </div>
               </div>
 
-              {/* CISSP Overview Image */}
               <div className="relative h-64 w-full max-w-3xl mx-auto my-8 rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src={'/assets/images/pages/genai/content/cissp_social_engineering.png'}
-                  alt="CISSP Domains Overview"
+                  src={`${basePath}/assets/images/pages/covid19/content/cissp_overview.png`}
+                  alt="CISSP Domains Overview for COVID-19 Phishing Risks"
                   fill
-                  className="object-contain"
+                  className="object-contain p-2 bg-white"
+                  unoptimized={true}
                 />
               </div>
 
-              {/* CISSP for Risk 2: Ransomware */}
               <div>
-                <h3 className="text-2xl font-semibold text-blue-700 mb-6 flex items-center"><FaVirus className="mr-3"/>Alignment for Risk 2: Ransomware Targeting Critical Infrastructure</h3>
+                <h3 className="text-2xl font-semibold text-blue-700 mb-6 flex items-center"><FaShieldAlt className="mr-3"/>Alignment for Risk 2: Increased Ransomware Attacks</h3>
                 <div className="prose prose-lg max-w-none prose-strong:text-gray-700">
                   <p>Mitigating the severe threat of ransomware attacks on critical healthcare infrastructure, which capitalized on vulnerabilities like <code className="font-mono text-sm bg-blue-100 px-1 rounded">Legacy Systems & Unpatched Devices</code>, <code className="font-mono text-sm bg-blue-100 px-1 rounded">Flat Network Architectures</code>, <code className="font-mono text-sm bg-blue-100 px-1 rounded">Inadequate Backup & Recovery</code> procedures (including online backups), and <code className="font-mono text-sm bg-blue-100 px-1 rounded">Weak Access Controls & Credential Hygiene</code>, requires comprehensive application of CISSP domains:</p>
                   <ul className="list-disc pl-5 space-y-2 mt-4">
@@ -449,7 +433,6 @@ export default function Covid19Page() {
               </div>
             </section>
 
-            {/* General Mitigation Strategies Section */}
             <section id="mitigation" className="mb-24 scroll-mt-20 border-t pt-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">General Mitigation Strategies</h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -468,10 +451,11 @@ export default function Covid19Page() {
                 </div>
                 <div className="relative h-[400px] rounded-xl overflow-hidden shadow-xl">
                   <Image                    
-                    src={'/assets/images/pages/covid19/content/solutions.png'}
+                    src={`${basePath}/assets/images/pages/covid19/content/solutions.png`}
                     alt="Security Solutions"
                     fill
                     className="object-cover"
+                    unoptimized={true}
                   />
                 </div>
               </div>
@@ -480,7 +464,6 @@ export default function Covid19Page() {
         </div>
       </div>
 
-      {/* Actionable Tools / Framework Section */}
       <div id="actionable-framework-covid19" className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -488,7 +471,6 @@ export default function Covid19Page() {
               Actionable Tools & Frameworks
             </h2>
 
-            {/* Employee Training and Awareness (URL Checker) */}
             <section className="mb-16">
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                 <div className="p-8">
@@ -562,7 +544,6 @@ export default function Covid19Page() {
               </div>
             </section>
 
-            {/* Security Incident Management Framework */}
             <section>
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
                 <div className="p-8">
@@ -602,7 +583,6 @@ export default function Covid19Page() {
           </div>
         </div>
       </div>      
-      {/* References Section */}
       <div className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -651,7 +631,6 @@ export default function Covid19Page() {
         </div>
       </div>
 
-      {/* Call to Action Section */}
       <div className="bg-gray-50 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">

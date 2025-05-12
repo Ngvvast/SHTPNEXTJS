@@ -8,25 +8,25 @@ const Testimonials = () => {
       quote: "Since partnering with SecureHealth, our patient data security has never been stronger. Their proactive approach and cutting-edge solutions have given us peace of mind. We&apos;ve seen a measurable improvement in our security posture.",
       name: "Dr. Emily Carter",
       title: "Chief Medical Officer, City General Hospital",
-      image: `${basePath}/images/placeholder-female-1.jpg`, // Updated path
+      image: `${basePath}/assets/images/testimonials/placeholder-female-1.jpg`, // Updated path
     },
     {
       quote: "The NIS2 compliance guidance from SecureHealth was invaluable. They made a complex process understandable and manageable, ensuring we met all requirements ahead of schedule. Their team&apos;s expertise is unmatched.",
       name: "John Matthews",
       title: "IT Director, Regional Health Clinics",
-      image: `${basePath}/images/placeholder-male-1.jpg`, // Updated path
+      image: `${basePath}/assets/images/testimonials/placeholder-male-1.jpg`, // Updated path
     },
     {
       quote: "SecureHealth&apos;s AI-driven threat detection identified a vulnerability we weren&apos;t aware of, preventing a potential major breach. Their understanding of healthcare-specific cyber threats is exceptional.",
       name: "Maria Rodriguez",
       title: "Practice Manager, Lakeside Family Care",
-      image: `${basePath}/images/placeholder-female-2.jpg`, // Updated path
+      image: `${basePath}/assets/images/testimonials/placeholder-female-2.jpg`, // Updated path
     },
     {
       quote: "Navigating HIPAA compliance for our new telehealth platform was daunting. SecureHealth provided a clear roadmap and practical solutions, making the entire process seamless. We couldn&apos;t have done it without them.",
       name: "David Lee",
       title: "CEO, HealthTech Innovators Inc.",
-      image: `${basePath}/images/placeholder-male-2.jpg`, // Updated path
+      image: `${basePath}/assets/images/testimonials/placeholder-male-2.jpg`, // Updated path
     }
   ];
 
@@ -41,12 +41,12 @@ const Testimonials = () => {
             <footer className="text-gray-600">
               <div className="flex justify-center items-center">
                 <Image
-                  src={`${basePath}/assets/logos/SHTP-LOGO.png`} // Updated path
+                  src={`${basePath}/assets/logos/SHTP-LOGO.png`} 
                   alt="Client Logo"
                   width={48}
                   height={48}
                   className="rounded-full mr-3"
-                  unoptimized={true} // Added for static export
+                  unoptimized={true}
                 />
                 <div>
                   <cite className="font-semibold not-italic">Dr. Sarah Chen</cite>

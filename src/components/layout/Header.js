@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -14,14 +15,16 @@ const Header = () => {
       <div className="container mx-auto flex items-center h-16 px-4">
         {/* Logo section */}
         <div className="flex-shrink-0 flex items-center mr-12">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <Image 
-              src="/assets/logos/SHTP-LOGO.png" 
+              src={`${basePath}/assets/logos/SHTP-LOGO.png`} 
               alt="SHTP Logo" 
-              width={131} 
-              height={44} 
-              priority
+              width={180} 
+              height={40} 
+              unoptimized={true}
+              priority={true}
             />
+            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SHTP</span>
           </Link>
         </div>
 
