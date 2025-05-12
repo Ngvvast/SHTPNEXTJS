@@ -1,0 +1,48 @@
+name: Deploy Next.js to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master # Or main, depending on your default branch
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Specify your Node.js version
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Install dependencies
+        run: npm install # Or yarn install, or pnpm install
+
+      - name: Build Next.js site
+        run: npm run build # Or your specific build command from package.json
+        env:
+          NEXT_PUBLIC_BASE_PATH: /SHTPNEXTJS # Make sure this matches your basePath
+
+      # The actions/upload-pages-artifact action will automatically upload
+      # from the out or .next/static (if using Next.js 13.3+) directory
+      # if it exists, or from a folder named _site or public.
+      # If your static site is built to a different folder, change the `path` property.
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out # This should point to your Next.js export directory
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
