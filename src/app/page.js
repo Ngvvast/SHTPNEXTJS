@@ -3,11 +3,9 @@ import MainLayout from '../layouts/MainLayout';
 import HeroCarousel from '../components/HeroCarousel';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'; // Import useRouter
 
 export default function Home() {
-  const router = useRouter();
-  const basePath = router.basePath || '';
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
   return (
     <MainLayout>
@@ -27,6 +25,7 @@ export default function Home() {
                 alt="Solutions"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
+                unoptimized={true}
               />
             </div>
             <div className="relative z-20">
@@ -57,6 +56,7 @@ export default function Home() {
                 alt="NIS2"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
+                unoptimized={true}
               />
             </div>
             <div className="relative z-20">
@@ -87,6 +87,7 @@ export default function Home() {
                 alt="Generative AI"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
+                unoptimized={true}
               />
             </div>
             <div className="relative z-20">
@@ -117,6 +118,7 @@ export default function Home() {
                 alt="COVID-19"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
+                unoptimized={true}
               />
             </div>
             <div className="relative z-20">
@@ -160,6 +162,7 @@ export default function Home() {
                   alt="Healthcare Security" 
                   width={40} 
                   height={40} 
+                  unoptimized={true}
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -184,6 +187,7 @@ export default function Home() {
                   alt="Incident Response" 
                   width={40} 
                   height={40} 
+                  unoptimized={true}
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -208,6 +212,7 @@ export default function Home() {
                   alt="Products and Services" 
                   width={40} 
                   height={40} 
+                  unoptimized={true}
                 />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -270,6 +275,7 @@ export default function Home() {
                   alt="Healthcare Security Challenges"
                   fill
                   style={{objectFit: 'contain'}}
+                  unoptimized={true}
                 />
               </div>
             </div>

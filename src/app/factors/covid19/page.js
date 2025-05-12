@@ -42,13 +42,37 @@ export default function Covid19Page() {
 
   const checkPhishingUrl = async () => {
     setIsChecking(true);
-    try {
-      const response = await fetch(`${basePath}/api/check-url?url=${encodeURIComponent(urlToCheck)}`); // Prepend basePath to API route
-      const data = await response.json();
-      setCheckResult(data);
-    } catch (error) {
-      setCheckResult({ error: 'Failed to check URL. Please try again.' });
+    setCheckResult(null); // Clear previous results
+
+    if (!urlToCheck) {
+      setCheckResult({ error: 'URL parameter is required' });
+      setIsChecking(false);
+      return;
     }
+
+    // Simplified simulation logic directly in the component
+    let isSafe = true;
+    let reason = 'Simulated safe response.';
+    const urlLower = urlToCheck.toLowerCase();
+
+    // Example of a simple heuristic for simulation
+    if (urlLower.includes('phishing') || urlLower.includes('malware') || urlLower.includes('evil')) {
+      isSafe = false;
+      reason = 'Simulated unsafe URL (contains suspicious keywords).';
+    } else if (urlLower.length > 0 && urlLower.length < 10) {
+      // Arbitrary rule for variety in simulation
+      isSafe = false;
+      reason = 'Simulated unsafe URL (URL too short for this demo).';
+    }
+
+    // Simulate a delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    setCheckResult({
+      isSafe,
+      reason,
+      note: 'This is a simulated response for demonstration purposes.'
+    });
     setIsChecking(false);
   };
 
@@ -58,7 +82,7 @@ export default function Covid19Page() {
       <div className="relative bg-gradient-to-br from-blue-700 via-cyan-700 to-blue-800 py-24 mt-16">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src={`${basePath}/assets/images/hero/background_placeholder.png`}
+            src={'/assets/images/hero/background_placeholder.png'}
             alt="COVID-19 Healthcare Cybersecurity"
             fill
             className="object-cover mix-blend-overlay opacity-20"
@@ -116,10 +140,10 @@ export default function Covid19Page() {
         <div className="container mx-auto px-4">          
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
-              { title: 'Overview', description: 'Impact on UK Healthcare', image: `${basePath}/assets/images/pages/covid19/nav-cards/overview.png`, link: '#overview' },
-              { title: 'Risk 1: Phishing', description: 'Social Engineering Analysis', image: `${basePath}/assets/images/pages/covid19/nav-cards/phishing.png`, link: '#risk1-phishing' },
-              { title: 'Risk 2: Ransomware', description: 'Critical Infrastructure Impact', image: `${basePath}/assets/images/pages/covid19/nav-cards/ransomware.png`, link: '#risk2-ransomware' },
-              { title: 'Mitigation', description: 'General Security Measures', image: `${basePath}/assets/images/pages/covid19/nav-cards/solutions.png`, link: '#mitigation' }
+              { title: 'Overview', description: 'Impact on UK Healthcare', image: '/assets/images/pages/covid19/nav-cards/overview.png', link: '#overview' },
+              { title: 'Risk 1: Phishing', description: 'Social Engineering Analysis', image: '/assets/images/pages/covid19/nav-cards/phishing.png', link: '#risk1-phishing' },
+              { title: 'Risk 2: Ransomware', description: 'Critical Infrastructure Impact', image: '/assets/images/pages/covid19/nav-cards/ransomware.png', link: '#risk2-ransomware' },
+              { title: 'Mitigation', description: 'General Security Measures', image: '/assets/images/pages/covid19/nav-cards/solutions.png', link: '#mitigation' }
             ].map((card, index) => (
               <Link 
                 key={index}
@@ -160,14 +184,14 @@ export default function Covid19Page() {
                     
                     <p className="mt-4">Since the WannaCry attack, the NHS has spent a sizable amount of capital to enhance system infrastructure and to improve dedicated cybersecurity capabilities. However, due to budgetary constraints, these Systems are put in a position where difficult choices must be made regarding the allocation of resources and investment into cybersecurity is frequently deemed an afterthought.</p>
                     
-                    <p className="mt-4">The way in which people usually allocate resources in any given sector is considered, from one point, an opportunity cost decision—yet with respect to healthcare, regarding patients' safety, and on the economy, the impact could be severe. What is the blurring point that would signal the need for these changes to be made at an institutional level?</p>
+                    <p className="mt-4">The way in which people usually allocate resources in any given sector is considered, from one point, an opportunity cost decision—yet with respect to healthcare, regarding patients&apos; safety, and on the economy, the impact could be severe. What is the blurring point that would signal the need for these changes to be made at an institutional level?</p>
                     
-                    <p className="mt-4">This case study draws from real and holistic problems that every empiric health system faces. However, to what extent can other heterogeneous health systems be made use of in each other's experience and can that knowledge be disseminated in a way that cybersecurity incidents are mitigated in future attempts.</p>
+                    <p className="mt-4">This case study draws from real and holistic problems that every empiric health system faces. However, to what extent can other heterogeneous health systems be made use of in each other&apos;s experience and can that knowledge be disseminated in a way that cybersecurity incidents are mitigated in future attempts.</p>
                   </div>
                 </div>
                 <div className="relative h-[350px] rounded-lg overflow-hidden shadow-lg">
                   <Image                    
-                    src={`${basePath}/assets/images/pages/covid19/content/overview.png`}
+                    src={'/assets/images/pages/covid19/content/overview.png'}
                     alt="Healthcare Cybersecurity Overview"
                     fill
                     className="object-cover"
@@ -225,7 +249,7 @@ export default function Covid19Page() {
                   {activePhishingSubTab === 'description' && (
                     <>
                       <h4 className="text-xl font-semibold mb-3 flex items-center"><FaFileAlt className="mr-2 text-blue-600"/>A. Risk Description</h4>
-                      <p>The COVID-19 pandemic created an environment of heightened fear, uncertainty, and urgency, which cybercriminals systematically exploited. Phishing and social engineering attacks surged, preying on the public's and healthcare workers' need for information and changes in operational procedures. Attackers crafted messages that appeared to be from legitimate sources like the World Health Organization (WHO), NHS, government bodies (e.g., HMRC), or internal departments (IT, HR). These communications often revolved around themes such as vaccine distribution, COVID-19 testing, safety protocols, remote work guidelines, and financial support, compelling recipients to act hastily.</p>
+                      <p>The COVID-19 pandemic created an environment of heightened fear, uncertainty, and urgency, which cybercriminals systematically exploited. Phishing and social engineering attacks surged, preying on the public&apos;s and healthcare workers&apos; need for information and changes in operational procedures. Attackers crafted messages that appeared to be from legitimate sources like the World Health Organization (WHO), NHS, government bodies (e.g., HMRC), or internal departments (IT, HR). These communications often revolved around themes such as vaccine distribution, COVID-19 testing, safety protocols, remote work guidelines, and financial support, compelling recipients to act hastily.</p>
                     </>
                   )}
                   {activePhishingSubTab === 'vulnerabilities' && (
@@ -248,7 +272,7 @@ export default function Covid19Page() {
                       <ul className="list-disc pl-5 space-y-2">
                         <li><strong>Impersonation:</strong> Crafting emails, SMS (smishing), and voice calls (vishing) that convincingly impersonated trusted entities like WHO, NHS, government agencies, or company executives (CEO fraud).</li>
                         <li><strong>Themed Lures:</strong> Using subject lines and content related to COVID-19 test results, vaccine appointments, safety guidelines, remote work instructions, stimulus payments, or urgent health alerts.</li>
-                        <li><strong>Malicious Attachments & Links:</strong> Distributing malware (e.g., ransomware loaders like Emotet, TrickBot, BazarLoader; info-stealers like Agent Tesla; Remote Access Trojans - RATs) via attachments disguised as important documents (e.g., "COVID-19_Safety_Measures.pdf", "Urgent_Remote_Access_Update.docx") or links to fake login portals.</li>
+                        <li><strong>Malicious Attachments & Links:</strong> Distributing malware (e.g., ransomware loaders like Emotet, TrickBot, BazarLoader; info-stealers like Agent Tesla; Remote Access Trojans - RATs) via attachments disguised as important documents (e.g., &quot;COVID-19_Safety_Measures.pdf&quot;, &quot;Urgent_Remote_Access_Update.docx&quot;) or links to fake login portals.</li>
                         <li><strong>Fake Login Portals:</strong> Creating convincing replicas of login pages for Office 365, VPNs, telehealth platforms, NHS internal portals, or other critical systems to harvest credentials.</li>
                         <li><strong>Exploitation of Public Information:</strong> Leveraging publicly available information from social media or data breaches to tailor spear-phishing attacks against specific healthcare roles or individuals.</li>
                         <li><strong>Phishing Kits:</strong> Utilizing readily available phishing kits from dark web marketplaces to quickly deploy sophisticated phishing campaigns with minimal technical skill.</li>
@@ -271,14 +295,14 @@ export default function Covid19Page() {
                   {activePhishingSubTab === 'scenario' && (
                     <>
                       <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaRegCommentDots className="mr-2 text-teal-500"/>E. Scenario Example</h4>
-                      <p>An overworked NHS clinician receives an email appearing to be from their hospital's IT department. The subject line reads: "Urgent: Mandatory Telehealth Platform Security Update - Action Required Within 2 Hours." The email explains that due to increased COVID-19 caseloads and telehealth usage, an immediate security patch must be applied by logging into a "newly secured portal." The link provided uses a typosquatted domain (e.g., `hospital-securelogin.co.uk` instead of `hospital.nhs.uk/securelogin`). The clinician, juggling patient care and fearing disruption to their remote consultations, clicks the link and enters their NHS credentials on the fake portal. Attackers capture these credentials, gain access to the hospital's network, exfiltrate sensitive patient data from the EHR system, and deploy a ransomware variant, crippling hospital operations for several days.</p>
+                      <p>An overworked NHS clinician receives an email appearing to be from their hospital&apos;s IT department. The subject line reads: &quot;Urgent: Mandatory Telehealth Platform Security Update - Action Required Within 2 Hours.&quot; The email explains that due to increased COVID-19 caseloads and telehealth usage, an immediate security patch must be applied by logging into a &quot;newly secured portal.&quot; The link provided uses a typosquatted domain (e.g., `hospital-securelogin.co.uk` instead of `hospital.nhs.uk/securelogin`). The clinician, juggling patient care and fearing disruption to their remote consultations, clicks the link and enters their NHS credentials on the fake portal. Attackers capture these credentials, gain access to the hospital&apos;s network, exfiltrate sensitive patient data from the EHR system, and deploy a ransomware variant, crippling hospital operations for several days.</p>
                     </>
                   )}
                 </div>
                 <div className="order-2 lg:order-1 relative h-[350px] rounded-lg overflow-hidden shadow-lg">
                   {/* Image can remain static or change based on sub-tab if desired */}
                   <Image
-                    src={`${basePath}/assets/images/pages/covid19/content/phishing.png`}
+                    src={'/assets/images/pages/covid19/content/phishing.png'}
                     alt="Phishing Attacks in Healthcare during COVID-19"
                     fill
                     className="object-cover"
@@ -314,7 +338,7 @@ export default function Covid19Page() {
                   {activeRansomwareSubTab === 'description' && (
                     <>
                       <h4 className="text-xl font-semibold mb-3 flex items-center"><FaFileAlt className="mr-2 text-blue-600"/>A. Risk Description</h4>
-                      <p>The COVID-19 pandemic critically increased the healthcare sector's dependency on interconnected digital systems for patient care, remote consultations, and administrative functions. This heightened reliance, coupled with often outdated or poorly secured infrastructure, made healthcare organizations prime targets for ransomware attacks. Cybercriminals recognized the immense pressure on healthcare providers to maintain operational continuity, making them more likely to pay ransoms to restore critical systems and avoid patient care disruptions. Ransomware attacks during this period were not just about data encryption; they often involved data exfiltration (double extortion) and threats to publish sensitive patient information if the ransom was not paid, further amplifying the impact.</p>
+                      <p>The COVID-19 pandemic critically increased the healthcare sector&apos;s dependency on interconnected digital systems for patient care, remote consultations, and administrative functions. This heightened reliance, coupled with often outdated or poorly secured infrastructure, made healthcare organizations prime targets for ransomware attacks. Cybercriminals recognized the immense pressure on healthcare providers to maintain operational continuity, making them more likely to pay ransoms to restore critical systems and avoid patient care disruptions. Ransomware attacks during this period were not just about data encryption; they often involved data exfiltration (double extortion) and threats to publish sensitive patient information if the ransom was not paid, further amplifying the impact.</p>
                     </>
                   )}
                   {activeRansomwareSubTab === 'vulnerabilities' && (
@@ -327,7 +351,7 @@ export default function Covid19Page() {
                         <li><strong>Insufficient Network Segmentation:</strong> Flat network architectures allowed attackers to move laterally with ease once initial access was gained, enabling widespread ransomware deployment across critical systems.</li>
                         <li><strong>Inadequate Backup and Recovery Practices:</strong> Lack of regular, tested, and offline/off-site backups meant that organizations often had no viable alternative to paying the ransom to recover encrypted data.</li>
                         <li><strong>Supply Chain Vulnerabilities:</strong> Compromise of third-party vendors or managed service providers (MSPs) with access to healthcare networks provided an indirect route for attackers.</li>
-                        <li><strong>Overwhelmed Security Teams:</strong> Security teams, already stretched by the pandemic's demands, struggled to keep up with the increased volume and sophistication of attacks, leading to delayed detection and response.</li>
+                        <li><strong>Overwhelmed Security Teams:</strong> Security teams, already stretched by the pandemic&apos;s demands, struggled to keep up with the increased volume and sophistication of attacks, leading to delayed detection and response.</li>
                       </ul>
                     </>
                   )}
@@ -361,14 +385,14 @@ export default function Covid19Page() {
                   {activeRansomwareSubTab === 'scenario' && (
                     <>
                       <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaRegCommentDots className="mr-2 text-teal-500"/>E. Scenario Example</h4>
-                      <p>A regional NHS Trust, already strained by pandemic response, falls victim to a sophisticated ransomware attack initiated via a phishing email containing a Qakbot malware loader. The attackers move laterally, compromise domain controllers using ZeroLogon, and exfiltrate terabytes of patient data. They then deploy Conti ransomware, encrypting servers hosting the EHR, pathology, and radiology systems. Critical appointments are cancelled, A&E is forced to divert ambulances, and clinicians resort to paper-based processes, significantly increasing the risk of medical errors. The attackers demand a £5 million ransom in Bitcoin and threaten to publish the stolen patient data on their leak site. The Trust's backups are found to be incomplete and also partially encrypted. After days of severe disruption and facing immense pressure, the Trust, in consultation with national cybersecurity agencies, makes the difficult decision not to pay the ransom and embarks on a lengthy and costly recovery process, while dealing with the fallout of a major patient data breach.</p>
+                      <p>A regional NHS Trust, already strained by pandemic response, falls victim to a sophisticated ransomware attack initiated via a phishing email containing a Qakbot malware loader. The attackers move laterally, compromise domain controllers using ZeroLogon, and exfiltrate terabytes of patient data. They then deploy Conti ransomware, encrypting servers hosting the EHR, pathology, and radiology systems. Critical appointments are cancelled, A&E is forced to divert ambulances, and clinicians resort to paper-based processes, significantly increasing the risk of medical errors. The attackers demand a £5 million ransom in Bitcoin and threaten to publish the stolen patient data on their leak site. The Trust&apos;s backups are found to be incomplete and also partially encrypted. After days of severe disruption and facing immense pressure, the Trust, in consultation with national cybersecurity agencies, makes the difficult decision not to pay the ransom and embarks on a lengthy and costly recovery process, while dealing with the fallout of a major patient data breach.</p>
                     </>
                   )}
                 </div>
                 <div className="relative h-[350px] rounded-lg overflow-hidden shadow-lg">
                    {/* Image can remain static or change based on sub-tab if desired */}
                   <Image
-                    src={`${basePath}/assets/images/pages/covid19/content/ransomware.png`}
+                    src={'/assets/images/pages/covid19/content/ransomware.png'}
                     alt="Ransomware Impact on Healthcare during COVID-19"
                     fill
                     className="object-cover"
@@ -400,7 +424,7 @@ export default function Covid19Page() {
               {/* CISSP Overview Image */}
               <div className="relative h-64 w-full max-w-3xl mx-auto my-8 rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src={`${basePath}/assets/images/pages/genai/content/cissp_social_engineering.png`}
+                  src={'/assets/images/pages/genai/content/cissp_social_engineering.png'}
                   alt="CISSP Domains Overview"
                   fill
                   className="object-contain"
@@ -417,7 +441,7 @@ export default function Covid19Page() {
                     <li><strong>Asset Security:</strong> Focuses on the stringent protection of critical assets such as Electronic Health Records (EHRs), Picture Archiving and Communication Systems (PACS), and Internet of Medical Things (IoMT) devices from encryption and data exfiltration (double extortion). This domain is key to managing risks associated with <code className="font-mono text-sm bg-blue-100 px-1 rounded">Legacy Systems & Unpatched Devices</code> by prioritizing their protection or isolation.</li>
                     <li><strong>Security Architecture and Engineering:</strong> Guides the design of resilient network architectures, emphasizing network segmentation (micro-segmentation) to contain ransomware propagation and counter <code className="font-mono text-sm bg-blue-100 px-1 rounded">Flat Network Architectures</code>. It also involves implementing robust security controls for all systems, including specialized medical devices, and ensuring secure configurations for <code className="font-mono text-sm bg-blue-100 px-1 rounded">Increased Remote Access Points</code>.</li>
                     <li><strong>Communication and Network Security:</strong> Involves securing network perimeters, internal network segments, and remote access channels (VPNs, RDP) to prevent initial ransomware intrusion and lateral movement. This includes hardening systems against exploitation of public-facing vulnerabilities.</li>
-                    <li><strong>Identity and Access Management (IAM):</strong> Enforcing the principle of least privilege, strong authentication (MFA), and regular credential audits to limit an attacker's ability to escalate privileges and move laterally, directly addressing <code className="font-mono text-sm bg-blue-100 px-1 rounded">Weak Access Controls & Credential Hygiene</code> and the risk from <code className="font-mono text-sm bg-blue-100 px-1 rounded">Third-Party Risks</code>.</li>
+                    <li><strong>Identity and Access Management (IAM):</strong> Enforcing the principle of least privilege, strong authentication (MFA), and regular credential audits to limit an attacker&apos;s ability to escalate privileges and move laterally, directly addressing <code className="font-mono text-sm bg-blue-100 px-1 rounded">Weak Access Controls & Credential Hygiene</code> and the risk from <code className="font-mono text-sm bg-blue-100 px-1 rounded">Third-Party Risks</code>.</li>
                     <li><strong>Security Assessment and Testing:</strong> Mandates regular and thorough vulnerability scanning, penetration testing, and security audits to proactively identify and remediate weaknesses such as <code className="font-mono text-sm bg-blue-100 px-1 rounded">Delayed Patching Cycles</code> and unpatched vulnerabilities before attackers can exploit them. Testing backup restoration is also critical.</li>
                     <li><strong>Security Operations:</strong> Implementing advanced Endpoint Detection and Response (EDR), Security Information and Event Management (SIEM) systems, and maintaining a vigilant Security Operations Center (SOC) for early detection, containment, and eradication of ransomware. This domain also covers effective vulnerability management, patch management, and ensuring that <code className="font-mono text-sm bg-blue-100 px-1 rounded">Inadequate Backup & Recovery</code> procedures are identified and improved through operational checks.</li>
                   </ul>
@@ -444,7 +468,7 @@ export default function Covid19Page() {
                 </div>
                 <div className="relative h-[400px] rounded-xl overflow-hidden shadow-xl">
                   <Image                    
-                    src={`${basePath}/assets/images/pages/covid19/content/solutions.png`}
+                    src={'/assets/images/pages/covid19/content/solutions.png'}
                     alt="Security Solutions"
                     fill
                     className="object-cover"
@@ -493,7 +517,7 @@ export default function Covid19Page() {
                       <ol className="list-decimal list-inside space-y-2">
                         <li>Copy the suspicious URL from the email or message</li>
                         <li>Paste it into the URL checker input field below</li>
-                        <li>Click the "Check URL" button</li>
+                        <li>Click the &quot;Check URL&quot; button</li>
                         <li>Wait for the safety result:
                           <ul className="ml-6 mt-2">
                             <li className="text-green-600">Green message: The URL appears safe</li>
@@ -614,10 +638,10 @@ export default function Covid19Page() {
                       <p>Manda, J.K., 2017. Cybersecurity strategies for legacy telecom systems: Developing tailored cybersecurity strategies to secure aging telecom infrastructures against modern cyber threats, leveraging your experience with legacy systems and cybersecurity practices. <em>Leveraging your Experience with Legacy Systems and Cybersecurity Practices</em>.</p>
                     </li>
                     <li>
-                      <p><strong>National Cyber Security Centre.</strong> (2022). "Cyber Security Guidance for Healthcare Organizations." <a href="https://www.ncsc.gov.uk/section/advice-guidance/all-topics" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">NCSC Guidance Portal</a></p>
+                      <p><strong>National Cyber Security Centre.</strong> (2022). &quot;Cyber Security Guidance for Healthcare Organizations.&quot; <a href="https://www.ncsc.gov.uk/section/advice-guidance/all-topics" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">NCSC Guidance Portal</a></p>
                     </li>
                     <li>
-                      <p><strong>NHS Digital.</strong> (2024). "Data Security and Protection Toolkit." <a href="https://www.dsptoolkit.nhs.uk/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">DSPT Portal</a></p>
+                      <p><strong>NHS Digital.</strong> (2024). &quot;Data Security and Protection Toolkit.&quot; <a href="https://www.dsptoolkit.nhs.uk/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">DSPT Portal</a></p>
                     </li>
                   </ol>
                 </div>

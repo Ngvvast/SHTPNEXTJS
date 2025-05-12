@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; // Import useRouter
 
+// Corrected paths assuming files are in public/assets/images/hero/...
 const heroSlides = [
   {
     id: 1,
@@ -13,14 +13,14 @@ const heroSlides = [
     ctaLink: "/demo",
     secondaryCtaText: "View Solutions",
     secondaryCtaLink: "/products",
-    backgroundImage: "/assets/images/hero/background_placeholder.png"
+    backgroundImage: "/assets/images/hero/background_placeholder.png" 
   },
   {
     id: 2,
     title: "NIS2 Directive",
     subtitle: "Stay Compliant with the Latest EU Cybersecurity Regulations",
     ctaText: "Learn About NIS2",
-    ctaLink: "/factors/nis2", // Updated link
+    ctaLink: "/factors/nis2",
     secondaryCtaText: "Get Assessment",
     secondaryCtaLink: "/assessment",
     backgroundImage: "/assets/images/hero/nis2/NIS2 DIRECTIVe.png"
@@ -30,7 +30,7 @@ const heroSlides = [
     title: "Generative AI Security",
     subtitle: "Protect Your AI Systems from Emerging Threats",
     ctaText: "Explore AI Security",
-    ctaLink: "/factors/genai", // Updated link
+    ctaLink: "/factors/genai",
     secondaryCtaText: "Watch Demo",
     secondaryCtaLink: "/demo",
     backgroundImage: "/assets/images/hero/genai/AI.png"
@@ -40,7 +40,7 @@ const heroSlides = [
     title: "COVID-19 Cybersecurity",
     subtitle: "Protect Healthcare Systems During Global Health Crises",
     ctaText: "View Solutions",
-    ctaLink: "/factors/covid19", // Updated link
+    ctaLink: "/factors/covid19",
     secondaryCtaText: "Emergency Support",
     secondaryCtaLink: "/emergency-support",
     backgroundImage: "/assets/images/hero/covid/Frame 118.png"
@@ -50,28 +50,38 @@ const heroSlides = [
 const HeroCarousel = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isLoaded, setIsLoaded] = useState({});
-  const router = useRouter(); // Initialize useRouter
-  const basePath = router.basePath || ''; // Get basePath
+  const effectiveBasePath = process.env.NEXT_PUBLIC_BASE_PATH || ''; 
+  
+  useEffect(() => {
+    console.log('[HeroCarousel Mounted] process.env.NEXT_PUBLIC_BASE_PATH:', process.env.NEXT_PUBLIC_BASE_PATH, ', effectiveBasePath:', effectiveBasePath);
+    console.log('[HeroCarousel Mounted] heroSlides definition being used:', JSON.stringify(heroSlides.map(s => s.backgroundImage)));
+  }, [effectiveBasePath]); // Log if effectiveBasePath changes
 
   useEffect(() => {
-    // Preload all images
+    console.log('[HeroCarousel Preload Effect] Running. effectiveBasePath (from NEXT_PUBLIC_BASE_PATH):', effectiveBasePath);
     heroSlides.forEach((slide, index) => {
+      const finalImageUrl = `${effectiveBasePath}${slide.backgroundImage}`;
+      console.log(`[HeroCarousel Preload Effect] Index ${index}: Slide path: "${slide.backgroundImage}", effectiveBasePath: "${effectiveBasePath}", Attempting to load: "${finalImageUrl}"`);
+      
       const img = new Image();
-      img.src = basePath + slide.backgroundImage; // Prepend basePath for preloading
+      img.src = finalImageUrl;
       img.onload = () => {
+        console.log(`[HeroCarousel Preload Effect] Successfully loaded: "${finalImageUrl}"`);
         setIsLoaded(prev => ({
           ...prev,
           [index]: true
         }));
       };
+      img.onerror = () => {
+        console.error(`[HeroCarousel Preload Effect] ERROR loading image. Attempted URL was: "${finalImageUrl}". (Raw slide.backgroundImage: "${slide.backgroundImage}", effectiveBasePath: "${effectiveBasePath}")`);
+      };
     });
-  }, [basePath]); // Add basePath to dependency array
+  }, [effectiveBasePath]); // Re-run if effectiveBasePath changes
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, []);
 
@@ -81,7 +91,6 @@ const HeroCarousel = () => {
 
   return (
     <div className="relative w-full h-[600px] md:h-screen overflow-hidden">
-      {/* Slides */}
       <div className="relative w-full h-full">
         {heroSlides.map((slide, index) => (
           <div
@@ -90,20 +99,15 @@ const HeroCarousel = () => {
               index === currentSlide ? 'opacity-100 visible' : 'opacity-0 invisible'
             }`}
           >
-            {/* Background Image */}
             <div
               className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-in-out"
               style={{
-                backgroundImage: `url("${basePath}${slide.backgroundImage}")`, // Prepend basePath here
+                backgroundImage: `url("${effectiveBasePath}${slide.backgroundImage}")`,
                 transform: isLoaded[index] && index === currentSlide ? 'scale(1)' : 'scale(1.05)',
                 transition: 'transform 6s ease-out, opacity 1s ease-in-out'
               }}
             />
-            
-            {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
-
-            {/* Content */}
             <div className="container mx-auto px-4 h-full relative z-10">
               <div className={`flex flex-col justify-center h-full max-w-3xl transition-all duration-1000 ease-in-out ${
                   index === currentSlide ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
@@ -130,8 +134,6 @@ const HeroCarousel = () => {
                     </Link>
                   )}
                 </div>
-
-                {/* Pagination Dots - Moved inside content, below buttons */}
                 <div className="flex gap-3 mt-4">
                   {heroSlides.map((_, idx) => (
                     <button

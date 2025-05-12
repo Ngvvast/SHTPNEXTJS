@@ -8,6 +8,20 @@ import MainLayout from '../../../layouts/MainLayout';
 import { FaVirus, FaBrain, FaShieldAlt } from 'react-icons/fa'; 
 import { useRouter } from 'next/navigation'; // Import useRouter
 
+const metadata = {
+  title: "Cybersecurity Factor Analysis Summary | SecureHealth",
+  description: "A summary of critical cybersecurity factors including COVID-19, Generative AI, and NIS2. Understand the interconnected risks and SecureHealth&apos;s holistic approach to cybersecurity in healthcare.",
+  keywords: [
+    "cybersecurity",
+    "healthcare",
+    "COVID-19",
+    "Generative AI",
+    "NIS2",
+    "risk factors",
+    "SecureHealth"
+  ]
+};
+
 export default function FactorsSummaryPage() {
   const router = useRouter(); // Initialize useRouter
   const basePath = router.basePath || ''; // Get basePath
@@ -61,7 +75,7 @@ export default function FactorsSummaryPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-semibold text-gray-800 mb-4">Understanding the Threat Landscape</h2>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Staying ahead in cybersecurity requires a clear understanding of the diverse factors that can impact your organization's security posture. Below, we summarize three significant areas demanding attention: the cybersecurity fallout from COVID-19, the risks associated with Generative AI, and the compliance requirements of the NIS2 Directive.
+              Staying ahead in cybersecurity requires a clear understanding of the diverse factors that can impact your organization&apos;s security posture. Below, we summarize three significant areas demanding attention: the cybersecurity fallout from COVID-19, the risks associated with Generative AI, and the compliance requirements of the NIS2 Directive.
             </p>
           </div>
         </div>

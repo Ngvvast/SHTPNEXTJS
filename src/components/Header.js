@@ -43,7 +43,7 @@ const Header = () => {
         <div className="flex items-center">
           <Link href="/" className="flex items-center">
             <Image 
-              src="/assets/logos/SHTP-LOGO.png" // Rely on assetPrefix
+              src="/assets/logos/SHTP-LOGO.png" // Corrected path, assetPrefix will handle /SHTPNEXTJS
               alt="SHTP Logo" 
               width={180} 
               height={40} 
