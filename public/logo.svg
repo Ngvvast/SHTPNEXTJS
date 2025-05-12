@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="40" viewBox="0 0 180 40" fill="none">
+  <path d="M10 5L5 10V30L10 35H30L35 30V10L30 5H10Z" fill="#0046AD"/>
+  <path d="M15 15L12 18V22L15 25H25L28 22V18L25 15H15Z" fill="white"/>
+  <text x="45" y="25" font-family="Arial" font-weight="bold" font-size="16" fill="#111827">CyberFramework</text>
+</svg>
