@@ -537,7 +537,7 @@ export default function NIS2Content() {
                   <h4 className="text-xl font-semibold text-green-800 mb-2">1. Enhanced Supply Chain Risk Management:</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Key CISSP domains like Security and Risk Management (D1), Asset Security (D2), and Software Development Security (D8) are central here.
-                    <span className="text-blue-600 ml-1 font-medium">(For more details, navigate to the &quot;Risk 1: Supply Chain&quot; section and select the &quot;CISSP Alignment&quot; tab.)</span>
+                    <span className="text-blue-600 ml-1 font-medium">(For more details, navigate to the &#34;Risk 1: Supply Chain&#34; section and select the &#34;CISSP Alignment&#34; tab.)</span>
                   </p>
                   <ul className="list-disc list-inside text-gray-600 space-y-1">
                     <li>Conduct thorough due diligence and continuous monitoring of all third-party suppliers, especially those handling sensitive data or providing critical services.</li>
@@ -550,7 +550,7 @@ export default function NIS2Content() {
                   <h4 className="text-xl font-semibold text-green-800 mb-2">2. Closing Compliance Gaps & Preventing Misconfigurations:</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     This aligns with CISSP Domains such as Security and Risk Management (D1), Security Architecture and Engineering (D3), and Security Assessment and Testing (D6).
-                    <span className="text-blue-600 ml-1 font-medium">(For more details, navigate to the &quot;Risk 2: Compliance Gaps&quot; section and select the &quot;CISSP Alignment&quot; tab.)</span>
+                    <span className="text-blue-600 ml-1 font-medium">(For more details, navigate to the &#34;Risk 2: Compliance Gaps&#34; section and select the &#34;CISSP Alignment&#34; tab.)</span>
                   </p>
                   <ul className="list-disc list-inside text-gray-600 space-y-1">
                     <li>Perform comprehensive NIS2 gap analyses and risk assessments, regularly updating them to reflect changes in the threat landscape and organizational structure.</li>
@@ -564,7 +564,7 @@ export default function NIS2Content() {
                   <h4 className="text-xl font-semibold text-green-800 mb-2">3. Proactive Security Measures & Incident Response:</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Effectiveness here is supported by CISSP Domains like Security Assessment and Testing (D6) and Security Operations (D7).
-                    <span className="text-blue-600 ml-1 font-medium">(Relevant CISSP domain information can be found within the &quot;CISSP Alignment&quot; tabs of the &quot;Risk 1: Supply Chain&quot; and &quot;Risk 2: Compliance Gaps&quot; sections.)</span>
+                    <span className="text-blue-600 ml-1 font-medium">(Relevant CISSP domain information can be found within the &#34;CISSP Alignment&#34; tabs of the &#34;Risk 1: Supply Chain&#34; and &#34;Risk 2: Compliance Gaps&#34; sections.)</span>
                   </p>
                   <ul className="list-disc list-inside text-gray-600 space-y-1">
                     <li>Adopt a defense-in-depth strategy with multiple layers of security controls (technical, administrative, physical).</li>
