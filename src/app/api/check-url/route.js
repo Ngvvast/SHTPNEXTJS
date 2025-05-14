@@ -1,34 +1,13 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const url = searchParams.get('url');
+export const dynamic = 'force-static';
 
-  if (!url) {
-    return NextResponse.json({ error: 'URL parameter is required' }, { status: 400 });
-  }
-
-  // Simplified simulation logic
-  let isSafe = true;
-  let reason = 'Simulated safe response.';
-  const urlLower = url.toLowerCase();
-
-  // Example of a simple heuristic for simulation
-  if (urlLower.includes('phishing') || urlLower.includes('malware') || urlLower.includes('evil')) {
-    isSafe = false;
-    reason = 'Simulated unsafe URL (contains suspicious keywords).';
-  } else if (urlLower.length > 0 && urlLower.length < 10) {
-    // Arbitrary rule for variety in simulation
-    isSafe = false;
-    reason = 'Simulated unsafe URL (URL too short for this demo).';
-  }
-
-  // Simulate a delay, as an API call would have latency
-  await new Promise(resolve => setTimeout(resolve, 500));
-
+export async function GET() {
+  // This route is statically generated at build time due to 'force-static'.
+  // It returns a generic, fixed response as requested for the static export.
   return NextResponse.json({
-    isSafe,
-    reason,
-    note: 'This is a simulated response for demonstration purposes.'
+    isSafe: true,
+    reason: 'Simulated safe response (static placeholder).',
+    note: 'This is a generic response from a statically exported API route. URL checking is bypassed.'
   });
 }
