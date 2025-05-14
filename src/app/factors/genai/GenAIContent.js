@@ -484,7 +484,7 @@ export default function GenAIContent() {  // Renamed from GenAIPage
               <h3 className="text-3xl font-bold text-sky-700 mb-8 flex items-center"><FaBalanceScale className="mr-3"/>Critical Analysis of GenAI in Healthcare</h3>
               <div className="prose prose-lg max-w-none text-gray-700">
                 <p>
-                  [Placeholder for Critical Analysis content. This section should delve into a deeper critical examination of Generative AI's role in healthcare, considering ethical dilemmas, societal impact, regulatory challenges, and the balance between innovation and risk. It could explore questions like: How do we ensure equitable access to GenAI benefits? What are the long-term implications for the healthcare workforce? How can regulatory frameworks keep pace with rapid technological advancements?]
+                  [Placeholder for Critical Analysis content. This section should delve into a deeper critical examination of Generative AI&apos;s role in healthcare, considering ethical dilemmas, societal impact, regulatory challenges, and the balance between innovation and risk. It could explore questions like: How do we ensure equitable access to GenAI benefits? What are the long-term implications for the healthcare workforce? How can regulatory frameworks keep pace with rapid technological advancements?]
                 </p>
                 {/* Add more structured content like subheadings, lists, or blockquotes as needed */}
               </div>
