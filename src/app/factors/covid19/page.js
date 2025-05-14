@@ -408,8 +408,8 @@ export default function Covid19Page() {
 
               <div className="relative h-64 w-full max-w-3xl mx-auto my-8 rounded-lg overflow-hidden shadow-lg">
                 <Image
-                  src={`${basePath}/assets/images/pages/covid19/content/cissp_overview.png`}
-                  alt="CISSP Domains Overview for COVID-19 Phishing Risks"
+                  src={`${basePath}/assets/images/pages/genai/content/cissp_social_engineering.png`}
+                  alt="CISSP Domains Alignment for Social Engineering Risks during COVID-19"
                   fill
                   className="object-contain p-2 bg-white"
                   unoptimized={true}
@@ -434,146 +434,122 @@ export default function Covid19Page() {
             </section>
 
             <section id="mitigation" className="mb-24 scroll-mt-20 border-t pt-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">General Mitigation Strategies</h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div className="prose prose-lg max-w-none">
-                  <p>While specific recommendations address the risks above, general best practices remain crucial:</p>
-                  <ul className="mt-4">
-                    <li>Regular cybersecurity awareness training (including phishing simulation).</li>
-                    <li>Multi-factor authentication (MFA) implementation across all critical access points.</li>
-                    <li>Endpoint Detection and Response (EDR) solutions for proactive threat hunting.</li>
-                    <li>Consistent vulnerability scanning and patch management.</li>
-                    <li>Robust, regularly tested incident response and disaster recovery plans.</li>
-                    <li>Strong access control measures (principle of least privilege).</li>
-                    <li>Network segmentation to limit blast radius.</li>
-                    <li>Secure configuration of remote access tools (VPNs, RDP).</li>
-                  </ul>
-                </div>
-                <div className="relative h-[400px] rounded-xl overflow-hidden shadow-xl">
-                  <Image                    
-                    src={`${basePath}/assets/images/pages/covid19/content/solutions.png`}
-                    alt="Security Solutions"
-                    fill
-                    className="object-cover"
-                    unoptimized={true}
-                  />
-                </div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Enhanced Mitigation Strategies & Actionable Framework</h2>
+              <div className="prose prose-lg max-w-none mb-12">
+                <p>The COVID-19 pandemic underscored the critical need for robust cybersecurity. Beyond general best practices, healthcare organizations must adopt a proactive and adaptive security posture. Here are enhanced mitigation strategies:</p>
+                
+                <h4 className="text-xl font-semibold text-gray-800 mt-6 mb-3">1. Comprehensive Security Awareness & Training:</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li><strong>Pandemic-Specific Phishing Simulation:</strong> Conduct regular training using phishing emails that mimic COVID-19 related lures (e.g., vaccine updates, remote work policies, health alerts). Track metrics and provide targeted follow-up for individuals who fall victim.</li>
+                  <li><strong>Safe Remote Work Practices:</strong> Educate staff on securing home networks, using VPNs correctly, identifying secure Wi-Fi, and the risks of using personal devices for work (BYOD policies).</li>
+                  <li><strong>Reporting Suspicious Activity:</strong> Establish clear, easy-to-use channels for reporting suspected phishing attempts or security incidents without fear of reprisal.</li>
+                </ul>
+
+                <h4 className="text-xl font-semibold text-gray-800 mt-6 mb-3">2. Strengthen Identity & Access Management (IAM):</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li><strong>Universal Multi-Factor Authentication (MFA):</strong> Implement MFA for all remote access (VPNs, RDP), cloud services (Office 365, EHR portals), and privileged accounts.</li>
+                  <li><strong>Principle of Least Privilege:</strong> Ensure users only have access to the data and systems necessary for their roles. Regularly review and revoke unnecessary access.</li>
+                  <li><strong>Strong Password Policies & Management:</strong> Enforce complex passwords and encourage the use of password managers. Monitor for compromised credentials.</li>
+                </ul>
+
+                <h4 className="text-xl font-semibold text-gray-800 mt-6 mb-3">3. Secure Network & Endpoint Infrastructure:</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li><strong>Endpoint Detection and Response (EDR):</strong> Deploy EDR solutions on all endpoints (including those used by remote workers) for advanced threat detection, investigation, and response capabilities.</li>
+                  <li><strong>Aggressive Patch Management:</strong> Prioritize and expedite patching of critical vulnerabilities, especially in VPNs, RDP, and internet-facing systems. Automate where possible.</li>
+                  <li><strong>Network Segmentation:</strong> Isolate critical systems (e.g., EHRs, medical devices) from the general network to limit the blast radius of an attack. Implement micro-segmentation for finer control.</li>
+                  <li><strong>Secure Configuration of Remote Access Tools:</strong> Regularly audit and harden configurations for VPNs, RDP, and other remote access solutions. Disable unnecessary services.</li>
+                </ul>
+
+                <h4 className="text-xl font-semibold text-gray-800 mt-6 mb-3">4. Robust Data Backup & Recovery:</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li><strong>3-2-1 Backup Rule:</strong> Maintain at least three copies of data, on two different media types, with one copy off-site (and preferably offline/immutable).</li>
+                  <li><strong>Regularly Test Backups:</strong> Frequently test data restoration procedures to ensure backups are viable and recovery time objectives (RTOs) can be met.</li>
+                  <li><strong>Protect Backups from Ransomware:</strong> Ensure backups are isolated from the primary network and cannot be encrypted or deleted by ransomware.</li>
+                </ul>
+                
+                <h4 className="text-xl font-semibold text-gray-800 mt-6 mb-3">5. Proactive Threat Intelligence & Monitoring:</h4>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li><strong>Utilize Threat Intelligence Feeds:</strong> Subscribe to healthcare-specific threat intelligence to stay informed about emerging TTPs and vulnerabilities.</li>
+                  <li><strong>Security Information and Event Management (SIEM):</strong> Implement or enhance SIEM capabilities for centralized logging and real-time correlation of security events to detect suspicious activity.</li>
+                </ul>
               </div>
-            </section>
-          </div>
-        </div>
-      </div>
 
-      <div id="actionable-framework-covid19" className="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
-              Actionable Tools & Frameworks
-            </h2>
-
-            <section className="mb-16">
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    Employee Training and Awareness on Phishing Links
-                  </h3>
-                  <div className="bg-gray-50 rounded-xl p-6 mb-8">
+              <div id="actionable-framework-covid19-urlchecker" className="py-12 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl shadow-lg p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Actionable Framework: URL Safety Checker</h3>
+                <p className="text-center text-gray-700 mb-8">
+                  A key part of mitigating phishing risks, especially prevalent during the COVID-19 era, is empowering staff to identify malicious links. Our URL Safety Checker provides a simple way to assess potential threats.
+                </p>
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+                  <div className="p-8">
                     <h4 className="text-xl font-semibold text-gray-900 mb-4">Understanding Phishing Links</h4>
                     <div className="prose prose-lg max-w-none text-gray-700">
                       <p>
-                        Phishing links are deceptive URLs that mimic legitimate websites to steal sensitive information. 
-                        They often appear in emails or messages claiming to be from trusted sources and may:
+                        Phishing links are deceptive URLs designed to mimic legitimate websites to steal sensitive information like login credentials or financial details. They often appear in emails, SMS, or instant messages, urging immediate action.
                       </p>
                       <ul className="mt-3">
-                        <li>Use slightly misspelled domain names (e.g., g00gle.com instead of google.com)</li>
-                        <li>Create urgency or pressure to act quickly</li>
-                        <li>Request sensitive information like passwords or credit card details</li>
-                        <li>Contain suspicious URL structures or unusual characters</li>
+                        <li>Look for slight misspellings in domain names (e.g., `micros0ft.com` instead of `microsoft.com`).</li>
+                        <li>Be wary of links that create a sense of urgency or pressure.</li>
+                        <li>Never enter sensitive information on a site reached via an unsolicited link without verification.</li>
+                        <li>Hover over links (on desktop) to see the actual destination URL before clicking.</li>
                       </ul>
                     </div>
-                  </div>
-                  <div className="bg-blue-50 rounded-xl p-6 mb-8">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-4">How to Use the URL Safety Checker</h4>
-                    <div className="prose prose-lg max-w-none text-gray-700">
-                      <p className="mb-4">Follow these simple steps to verify if a link is safe:</p>
-                      <ol className="list-decimal list-inside space-y-2">
-                        <li>Copy the suspicious URL from the email or message</li>
-                        <li>Paste it into the URL checker input field below</li>
-                        <li>Click the &quot;Check URL&quot; button</li>
-                        <li>Wait for the safety result:
-                          <ul className="ml-6 mt-2">
-                            <li className="text-green-600">Green message: The URL appears safe</li>
-                            <li className="text-red-600">Red message: The URL may be dangerous - do not visit it</li>
-                          </ul>
-                        </li>
-                      </ol>
-                      <p className="mt-4 text-sm bg-yellow-50 p-3 rounded">
-                        <strong>Tip:</strong> Even if a URL passes this check, always be cautious with links requesting sensitive information.
-                      </p>
+                    
+                    <div className="bg-blue-50 rounded-xl p-6 mt-8 mb-8">
+                      <h4 className="text-xl font-semibold text-gray-900 mb-4">How to Use the URL Safety Checker</h4>
+                      <div className="prose prose-lg max-w-none text-gray-700">
+                        <p className="mb-4">Follow these simple steps to verify if a link is potentially unsafe:</p>
+                        <ol className="list-decimal list-inside space-y-2">
+                          <li>Copy the suspicious URL from the email, message, or website.</li>
+                          <li>Paste it into the input field below.</li>
+                          <li>Click the &quot;Check URL&quot; button.</li>
+                          <li>Review the safety result:
+                            <ul className="ml-6 mt-2">
+                              <li className="text-green-600">Green message: The URL appears safe based on our simulation.</li>
+                              <li className="text-red-600">Red message: The URL may be dangerous - exercise extreme caution and avoid visiting if unsure.</li>
+                            </ul>
+                          </li>
+                        </ol>
+                        <p className="mt-4 text-sm bg-yellow-100 border border-yellow-300 p-3 rounded">
+                          <strong>Important Note:</strong> This checker provides a simulated response for demonstration purposes. Always exercise caution and use multiple verification methods for suspicious links. If in doubt, do not click and report it to your IT/Security department.
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="bg-blue-50 rounded-xl p-6 mt-8">
-                    <h4 className="text-xl font-semibold text-gray-900 mb-4">URL Safety Checker</h4>
-                    <div className="flex flex-col space-y-4">
-                      <input
-                        type="url"
-                        value={urlToCheck}
-                        onChange={(e) => setUrlToCheck(e.target.value)}
-                        placeholder="Enter URL to check"
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                      />
-                      <button
-                        onClick={checkPhishingUrl}
-                        disabled={isChecking || !urlToCheck}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400"
-                      >
-                        {isChecking ? 'Checking...' : 'Check URL'}
-                      </button>
-                      {checkResult && (
-                        <div className={`p-4 rounded-lg ${
-                          checkResult.error ? 'bg-red-100 text-red-700' : 
-                          checkResult.isSafe ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                        }`}>
-                          {checkResult.error ? checkResult.error :
-                           checkResult.isSafe ? 'URL appears to be safe.' : 'Warning: This URL may be unsafe!'}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
 
-            <section>
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                    Security Incident Management
-                  </h3>
-                  <div className="prose prose-lg max-w-none">
-                    <p>Establish a robust incident response framework to effectively handle security breaches:</p>
-                    <ul>
-                      <li>Incident Response Team Formation</li>
-                      <li>Clear Communication Protocols</li>
-                      <li>Documentation and Reporting Procedures</li>
-                      <li>Regular Incident Response Drills</li>
-                      <li>Post-Incident Analysis and Learning</li>
-                    </ul>
-                  </div>
-                  <div className="mt-8 p-6 bg-amber-50 rounded-xl">
-                    <h4 className="text-lg font-semibold text-amber-900 mb-3">Response Time Framework</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="bg-white p-4 rounded-lg shadow">
-                        <div className="font-bold text-amber-700 mb-2">Detection</div>
-                        <div className="text-sm text-gray-600">Within 15 minutes</div>
-                      </div>
-                      <div className="bg-white p-4 rounded-lg shadow">
-                        <div className="font-bold text-amber-700 mb-2">Response</div>
-                        <div className="text-sm text-gray-600">Within 1 hour</div>
-                      </div>
-                      <div className="bg-white p-4 rounded-lg shadow">
-                        <div className="font-bold text-amber-700 mb-2">Resolution</div>
-                        <div className="text-sm text-gray-600">Within 4 hours</div>
+                    <div className="bg-gray-100 rounded-xl p-6 mt-8">
+                      <h4 className="text-xl font-semibold text-gray-900 mb-4 text-center">Live URL Safety Checker (Demo)</h4>
+                      <div className="flex flex-col space-y-4 max-w-lg mx-auto">
+                        <input
+                          type="url"
+                          value={urlToCheck}
+                          onChange={(e) => setUrlToCheck(e.target.value)}
+                          placeholder="Enter URL to check (e.g., https://example.com)"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
+                        />
+                        <button
+                          onClick={checkPhishingUrl}
+                          disabled={isChecking || !urlToCheck}
+                          className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                        >
+                          {isChecking ? (
+                            <span className="flex items-center justify-center">
+                              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                              Checking...
+                            </span>
+                          ) : 'Check URL Safety'}
+                        </button>
+                        {checkResult && (
+                          <div className={`p-4 rounded-lg text-center font-medium ${
+                            checkResult.error ? 'bg-red-100 text-red-700 border border-red-300' : 
+                            checkResult.isSafe ? 'bg-green-100 text-green-700 border border-green-300' : 'bg-red-100 text-red-700 border border-red-300'
+                          }`}>
+                            {checkResult.error ? checkResult.error :
+                             checkResult.isSafe ? `Safe: ${checkResult.reason}` : `Warning: ${checkResult.reason}`}
+                            {checkResult.note && <p className="text-sm mt-1">{checkResult.note}</p>}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

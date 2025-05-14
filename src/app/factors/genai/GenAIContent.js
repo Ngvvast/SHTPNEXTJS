@@ -4,9 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MainLayout from '../../../layouts/MainLayout';
 // Ensure 'react-icons' is installed: npm install react-icons
-import { FaBrain, FaUserSecret, FaDatabase, FaShieldAlt, FaCheckCircle, FaInfoCircle, FaBookOpen, FaFileAlt, FaExclamationTriangle, FaTools, FaRegCommentDots, FaMicrochip, FaShareAlt, FaBolt, FaTasks, FaLink, FaExclamationCircle, FaChevronRight } from 'react-icons/fa'; // Added FaTasks, FaLink, FaExclamationCircle, FaChevronRight
+import { FaBrain, FaUserSecret, FaDatabase, FaShieldAlt, FaCheckCircle, FaInfoCircle, FaFileAlt, FaExclamationTriangle, FaTools, FaRegCommentDots, FaMicrochip, FaShareAlt, FaBolt, FaTasks, FaLink, FaExclamationCircle, FaChevronRight, FaBook, FaPuzzlePiece, FaChevronDown, FaChevronUp, FaBalanceScale, FaLightbulb } from 'react-icons/fa'; // Added FaBalanceScale, FaLightbulb
 import InteractiveGenAiRiskAssessment from '../../../components/sections/InteractiveGenAiRiskAssessment'; // Import the new component
 import { useState } from 'react'; // Import useState
+
+const references = [
+  { id: 'ref-ncsc-ai', text: 'National Cyber Security Centre (NCSC) (2023). <em>Principles for AI Security</em>. [Online]. Available at: https://www.ncsc.gov.uk/collection/ai-security/principles-for-ai-security (Accessed: 14 May 2024).' },
+  { id: 'ref-nhs-ai-repo', text: 'NHS England (2024). <em>AI Knowledge Repository</em>. [Online]. Available at: https://digital.nhs.uk/services/ai-knowledge-repository (Accessed: 14 May 2024).' },
+  { id: 'ref-ico-ai-dp', text: 'Information Commissioner\'s Office (ICO) (2023). <em>Guidance on AI and data protection</em>. [Online]. Available at: https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/guidance-on-ai-and-data-protection/ (Accessed: 14 May 2024).' },
+  { id: 'ref-owasp-llm', text: 'OWASP Foundation (2025). <em>OWASP Top 10 for LLM Applications List for 2025</em>. [Online]. Available at: https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/ (Accessed: 14 May 2024).' }
+];
 
 export default function GenAIContent() {  // Renamed from GenAIPage
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
@@ -16,9 +23,10 @@ export default function GenAIContent() {  // Renamed from GenAIPage
     { id: 'overview', title: 'Overview', icon: <FaInfoCircle /> },
     { id: 'risk1-social-engineering', title: 'Risk 1: AI Social Engineering', icon: <FaUserSecret /> },
     { id: 'risk2-data-poisoning', title: 'Risk 2: Data Poisoning', icon: <FaDatabase /> },
-    { id: 'cissp-alignment-genai', title: 'CISSP Alignment', icon: <FaBookOpen /> },
-    { id: 'mitigation-genai', title: 'Mitigation Strategies', icon: <FaShieldAlt /> },
-    { id: 'interactive-assessment-genai', title: 'Interactive Assessment', icon: <FaTasks /> }, // Added Nav Item
+    { id: 'mitigation', title: 'Mitigation Strategies', icon: <FaShieldAlt /> }, // ID updated
+    { id: 'critical-analysis-genai', title: 'Critical Analysis', icon: <FaBalanceScale /> }, // New
+    { id: 'solutions-drawbacks-genai', title: 'Solutions & Drawbacks', icon: <FaLightbulb /> }, // New
+    { id: 'interactive-assessment-genai', title: 'Interactive Assessment', icon: <FaTasks /> },
     { id: 'future-outlook', title: 'Future Outlook', icon: <FaBolt /> },
     { id: 'references', title: 'References', icon: <FaLink /> }
   ];
@@ -33,6 +41,7 @@ export default function GenAIContent() {  // Renamed from GenAIPage
     { id: 'ttps', title: 'Attacker TTPs', icon: <FaTools /> },
     { id: 'impact', title: 'Impact', icon: <FaExclamationCircle /> },
     { id: 'scenario', title: 'Scenario', icon: <FaRegCommentDots /> },
+    { id: 'cissp', title: 'CISSP Alignment', icon: <FaPuzzlePiece /> }, // Updated icon
   ];
 
   const dataPoisoningSubTabs = [
@@ -41,20 +50,55 @@ export default function GenAIContent() {  // Renamed from GenAIPage
     { id: 'ttps', title: 'Attacker TTPs', icon: <FaTools /> },
     { id: 'impact', title: 'Impact', icon: <FaExclamationCircle /> },
     { id: 'scenario', title: 'Scenario', icon: <FaRegCommentDots /> },
+    { id: 'cissp', title: 'CISSP Alignment', icon: <FaPuzzlePiece /> }, // Updated icon
   ];
+
+  // CISSP Domain Data for Social Engineering Risk
+  const socialEngineeringCisspDomains = [
+    { id: 'se-d1', title: 'Security and Risk Management (Domain 1)', content: 'This domain is crucial for addressing AI-driven social engineering. It involves identifying and assessing the risk of deepfakes and sophisticated phishing campaigns powered by GenAI, establishing governance frameworks that consider the ethical implications of using or defending against such AI, and implementing risk mitigation strategies, including awareness programs and incident response plans tailored to these advanced threats.' },
+    { id: 'se-d5', title: 'Identity and Access Management (Domain 5)', content: 'IAM plays a vital role in preventing the success of AI-powered social engineering attacks by ensuring robust authentication mechanisms that are resilient to impersonation attempts, even those enhanced by AI, implementing the principle of least privilege to limit the potential impact if an account is compromised through social engineering, and monitoring access patterns for anomalies that might indicate a compromised account or an AI-driven attack in progress.' },
+  ];
+
+  // CISSP Domain Data for Data Poisoning Risk
+  const dataPoisoningCisspDomains = [
+    { id: 'dp-d1', title: 'Security and Risk Management (Domain 1)', content: 'This domain addresses the foundational aspects of protecting AI models: Assessing risks related to training data integrity and model susceptibility to adversarial attacks. Defining policies for data sourcing, validation, and continuous monitoring of model performance for signs of compromise. Ensuring model integrity and establishing ethical guidelines for AI development and deployment.' },
+    { id: 'dp-d2', title: 'Asset Security (Domain 2)', content: 'Protecting the data and models themselves is paramount: Classifying training data and AI models as critical assets requiring stringent protection measures. Implementing secure data handling procedures throughout the AI lifecycle, from collection to model training and inference. Protecting the intellectual property embodied in the AI models and algorithms.' },
+    { id: 'dp-d8', title: 'Software Development Security (Domain 8)', content: 'Secure development practices are essential for building resilient AI systems: Integrating security into the AI model development lifecycle (MLSecOps). Conducting vulnerability assessments of AI components and dependencies. Implementing robust input validation and sanitization to defend against data poisoning and some forms of evasion. Developing secure APIs for model interaction.' },
+  ];
+
+  const [openSocialEngineeringCisspDomain, setOpenSocialEngineeringCisspDomain] = useState(socialEngineeringCisspDomains[0]?.id || null);
+  const [openDataPoisoningCisspDomain, setOpenDataPoisoningCisspDomain] = useState(dataPoisoningCisspDomains[0]?.id || null);
+
+  const toggleSocialEngineeringCisspDomain = (domainId) => {
+    setOpenSocialEngineeringCisspDomain(prevOpen => (prevOpen === domainId ? null : domainId));
+  };
+
+  const toggleDataPoisoningCisspDomain = (domainId) => {
+    setOpenDataPoisoningCisspDomain(prevOpen => (prevOpen === domainId ? null : domainId));
+  };
+
+  // Shared placeholder images for GenAI risk sub-tabs
+  const genAiRiskImages = {
+    description: '/assets/images/pages/genai/risk-images/shared_description.png',
+    vulnerabilities: '/assets/images/pages/genai/risk-images/shared_vulnerabilities.png',
+    ttps: '/assets/images/pages/genai/risk-images/shared_ttps.png',
+    impact: '/assets/images/pages/genai/risk-images/shared_impact.png',
+    scenario: '/assets/images/pages/genai/risk-images/shared_scenario.png',
+    cissp: '/assets/images/pages/genai/risk-images/shared_cissp.png',
+  };
 
   return (
     <MainLayout>
       {/* Hero Section - Enhanced Styling */}
-      <div className="relative bg-gradient-to-br from-blue-700 via-cyan-700 to-blue-800 py-28 mt-16"> {/* Applied NIS2 gradient */}
+      <div className="relative bg-gradient-to-br from-blue-700 via-cyan-700 to-blue-800 py-28 mt-16">
         <div className="absolute inset-0 overflow-hidden">
           <Image
-            src={`${basePath}/assets/images/hero/genai/AI.png`} // Updated image path
+            src={`${basePath}/assets/images/hero/genai/AI.png`}
             alt="Generative AI Hero"
             fill
-            className="object-cover opacity-20 mix-blend-overlay" // Adjusted opacity like NIS2
+            className="object-cover opacity-20 mix-blend-overlay"
             priority
-            unoptimized={true} // Added for static export
+            unoptimized={true}
           />
         </div>
         <div className="container mx-auto px-4 relative z-10">
@@ -70,10 +114,10 @@ export default function GenAIContent() {  // Renamed from GenAIPage
                 href="#risk-analysis-genai" 
                 className="bg-white text-blue-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900"
               >
-                Analyse Risks
+                View Risk Analysis
               </Link>
               <Link 
-                href="#mitigation-genai" 
+                href="#mitigation" 
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-900"
               >
                 Explore Mitigation
@@ -118,11 +162,11 @@ export default function GenAIContent() {  // Renamed from GenAIPage
                 </div>
                 <div className="relative h-[350px] rounded-lg overflow-hidden shadow-lg">
                   <Image
-                    src={`${basePath}/assets/images/pages/genai/content/genai_overview.png`} // Updated image path
+                    src={`${basePath}/assets/images/pages/genai/content/genai_overview.png`}
                     alt="Generative AI in Healthcare Concept"
                     fill
                     className="object-cover"
-                    unoptimized={true} // Added for static export
+                    unoptimized={true}
                   />
                 </div>
               </div>
@@ -148,39 +192,18 @@ export default function GenAIContent() {  // Renamed from GenAIPage
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Data Poisoning &amp; Evasion Attacks
+                  AI-Powered Social Engineering & Deepfakes
                 </h3>
                 <p className="text-gray-700">
-                  Malicious actors can corrupt AI models by feeding them
-                  manipulated data, leading to inaccurate outputs or system
-                  failures. Evasion attacks involve crafting inputs that trick AI
-                  models into making incorrect predictions, potentially
-                  impacting patient diagnoses or treatment plans. It&apos;s vital to
-                  ensure data integrity and model robustness.
+                  GenAI can create highly convincing phishing emails, voice clones, and video deepfakes to manipulate individuals, making attacks more sophisticated and harder to detect than traditional methods.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Model Inversion &amp; Membership Inference
+                  Data Poisoning & Model Evasion
                 </h3>
                 <p className="text-gray-700">
-                  These attacks aim to extract sensitive information from AI
-                  models. Model inversion attempts to reconstruct training data,
-                  potentially exposing confidential patient records. Membership
-                  inference determines if a specific individual&apos;s data was used
-                  to train the model. Protecting patient privacy is paramount.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Prompt Injection &amp; Output Manipulation
-                </h3>
-                <p className="text-gray-700">
-                  Attackers can inject malicious prompts to control AI behavior
-                  or generate harmful content. Output manipulation involves
-                  altering AI-generated results before they&apos;re used, which could
-                  have severe consequences in clinical decision-making. Secure
-                  prompt engineering and output verification are critical.
+                  Malicious actors can corrupt AI model training data (poisoning) or use crafted inputs to trick models (evasion), leading to inaccurate outputs, system failures, or impacting patient diagnoses.
                 </p>
               </div>
             </div>
@@ -189,7 +212,6 @@ export default function GenAIContent() {  // Renamed from GenAIPage
             <section id="risk1-social-engineering" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl shadow-lg border border-purple-200/50">
               <h3 className="text-3xl font-bold text-purple-700 mb-8 flex items-center"><FaUserSecret className="mr-3"/>Risk 1: AI-Powered Social Engineering &amp; Deepfakes</h3>
               
-              {/* Sub-tabs for Risk 1 */}
               <div className="mb-6 flex flex-wrap gap-2 border-b border-purple-200 pb-4">
                 {socialEngineeringSubTabs.map((tab) => (
                   <button
@@ -207,59 +229,94 @@ export default function GenAIContent() {  // Renamed from GenAIPage
                 ))}
               </div>
 
-              {/* Content for Risk 1 Sub-tabs */}
-              {activeSocialEngineeringSubTab === 'description' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <p>AI-powered social engineering involves using generative AI to create highly convincing phishing emails, voice messages (vishing), or even video deepfakes to manipulate individuals into divulging sensitive information or performing actions that compromise security. These attacks are more sophisticated and harder to detect than traditional social engineering attempts due to their personalization and realism.</p>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mt-6">
+                <div className="lg:col-span-2 prose prose-lg max-w-none prose-headings:text-purple-700 prose-strong:text-gray-700 text-gray-700">
+                  {activeSocialEngineeringSubTab === 'description' && (
+                    <>
+                      <h4 className="text-xl font-semibold mb-3 flex items-center"><FaFileAlt className="mr-2 text-purple-600"/>A. Risk Description</h4>
+                      <p>AI-powered social engineering involves using generative AI to create highly convincing phishing emails, voice messages (vishing), or even video deepfakes to manipulate individuals into divulging sensitive information or performing actions that compromise security. These attacks are more sophisticated and harder to detect than traditional social engineering attempts due to their personalization and realism.</p>
+                    </>
+                  )}
+                  {activeSocialEngineeringSubTab === 'vulnerabilities' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaExclamationTriangle className="mr-2 text-orange-500"/>B. Vulnerabilities Exploited</h4>
+                      <ul className="list-disc pl-5 space-y-2">
+                        <li><strong>Human Trust & Gullibility:</strong> Exploits the natural human tendency to trust seemingly authentic communication.</li>
+                        <li><strong>Lack of Awareness & Training:</strong> Insufficient training on identifying sophisticated AI-generated fakes.</li>
+                        <li><strong>Data Availability for Personalization:</strong> Publicly available information can be used by AI to tailor attacks.</li>
+                        <li><strong>Advanced Deepfake Technology:</strong> Increasing realism of AI-generated voice and video.</li>
+                      </ul>
+                    </>
+                  )}
+                  {activeSocialEngineeringSubTab === 'ttps' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaTools className="mr-2 text-gray-600"/>C. Attacker Techniques, Tools &amp; Practices</h4>
+                      <p>Attackers might use GenAI to:</p>
+                      <ul className="list-disc pl-5 space-y-2 mt-2">
+                        <li>Craft personalized spear-phishing emails that mimic trusted colleagues or superiors.</li>
+                        <li>Generate voice clones of executives to authorize fraudulent transactions.</li>
+                        <li>Create deepfake videos for disinformation campaigns or to impersonate individuals in secure video calls.</li>
+                        <li>Automate the creation and distribution of convincing fake news or alerts to cause panic or manipulate behavior.</li>
+                      </ul>
+                    </>
+                  )}
+                  {activeSocialEngineeringSubTab === 'impact' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaExclamationCircle className="mr-2 text-red-500"/>D. Impact Assessment</h4>
+                      <ul className="list-disc pl-5 space-y-2">
+                        <li>Unauthorized access to sensitive patient data (PHI).</li>
+                        <li>Financial fraud and theft.</li>
+                        <li>Reputational damage to the healthcare organization.</li>
+                        <li>Compromise of critical healthcare systems.</li>
+                        <li>Erosion of trust between patients and providers.</li>
+                      </ul>
+                    </>
+                  )}
+                  {activeSocialEngineeringSubTab === 'scenario' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaRegCommentDots className="mr-2 text-purple-500"/>E. Scenario Example</h4>
+                      <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg shadow-inner">
+                        <p className="text-gray-700">An attacker uses GenAI to create a voice clone of a hospital&apos;s Chief of Surgery. The AI calls a junior doctor, mimicking the Chief&apos;s voice and urgency, requesting immediate remote access to a patient&apos;s sensitive records for an &apos;emergency consultation&apos;. The junior doctor, believing it&apos;s a legitimate urgent request, bypasses standard verification protocols and provides access, leading to a data breach.</p>
+                      </div>
+                    </>
+                  )}
+                  {activeSocialEngineeringSubTab === 'cissp' && (
+                    <div className="mt-6">
+                      <h4 className="text-xl font-semibold mb-4 text-purple-700 flex items-center"><FaPuzzlePiece className="mr-2 text-purple-600"/>F. CISSP Domain Alignment</h4>
+                       <p className="mb-4"><strong>AI-Powered Social Engineering & Deepfakes</strong> present unique challenges. Understanding CISSP alignment helps formulate a comprehensive defense:</p>
+                      <div className="space-y-2">
+                        {socialEngineeringCisspDomains.map(domain => (
+                          <div key={domain.id} className="border border-purple-200 rounded-lg">
+                            <button
+                              onClick={() => toggleSocialEngineeringCisspDomain(domain.id)}
+                              className="w-full flex justify-between items-center p-4 bg-purple-100 hover:bg-purple-200 focus:outline-none transition-colors"
+                            >
+                              <span className="font-medium text-purple-700 text-left">{domain.title}</span>
+                              {openSocialEngineeringCisspDomain === domain.id ? <FaChevronUp className="text-purple-600" /> : <FaChevronDown className="text-purple-600" />}
+                            </button>
+                            {openSocialEngineeringCisspDomain === domain.id && (
+                              <div className="p-4 bg-white border-t border-purple-200">
+                                <p className="text-gray-700 text-sm">{domain.content}</p>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <p className="mt-4 text-sm text-gray-600">By focusing on these domains, organizations can build stronger defenses against the evolving threat of AI-enhanced social engineering and deepfakes.</p>
+                    </div>
+                  )}
                 </div>
-              )}
-              {activeSocialEngineeringSubTab === 'vulnerabilities' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li><strong>Human Trust & Gullibility:</strong> Exploits the natural human tendency to trust seemingly authentic communication.</li>
-                    <li><strong>Lack of Awareness & Training:</strong> Insufficient training on identifying sophisticated AI-generated fakes.</li>
-                    <li><strong>Data Availability for Personalization:</strong> Publicly available information can be used by AI to tailor attacks.</li>
-                    <li><strong>Advanced Deepfake Technology:</strong> Increasing realism of AI-generated voice and video.</li>
-                  </ul>
+                <div className="lg:col-span-1 order-1 lg:order-2 mt-6 lg:mt-0">
+                  <div className="relative h-[300px] lg:h-[350px] rounded-lg overflow-hidden shadow-lg group">
+                    <Image 
+                      src={`${basePath}${genAiRiskImages[activeSocialEngineeringSubTab] || genAiRiskImages.description}`}
+                      alt={`Visual for ${activeSocialEngineeringSubTab.replace('-', ' ')}`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      unoptimized={true}
+                    />
+                  </div>
                 </div>
-              )}
-              {activeSocialEngineeringSubTab === 'ttps' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <p>Attackers might use GenAI to:
-                    <ul className="list-disc pl-5 space-y-2 mt-2">
-                      <li>Craft personalized spear-phishing emails that mimic trusted colleagues or superiors.</li>
-                      <li>Generate voice clones of executives to authorize fraudulent transactions.</li>
-                      <li>Create deepfake videos for disinformation campaigns or to impersonate individuals in secure video calls.</li>
-                      <li>Automate the creation and distribution of convincing fake news or alerts to cause panic or manipulate behavior.</li>
-                    </ul>
-                  </p>
-                </div>
-              )}
-              {activeSocialEngineeringSubTab === 'impact' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Unauthorized access to sensitive patient data (PHI).</li>
-                    <li>Financial fraud and theft.</li>
-                    <li>Reputational damage to the healthcare organization.</li>
-                    <li>Compromise of critical healthcare systems.</li>
-                    <li>Erosion of trust between patients and providers.</li>
-                  </ul>
-                </div>
-              )}
-              {activeSocialEngineeringSubTab === 'scenario' && (
-                <div className="p-6 bg-purple-50 border border-purple-200 rounded-lg shadow-inner">
-                  <h4 className="text-xl font-semibold text-purple-700 mb-3">Scenario: The Compromised Clinician</h4>
-                  <p className="text-gray-700">An attacker uses GenAI to create a voice clone of a hospital&apos;s Chief of Surgery. The AI calls a junior doctor, mimicking the Chief&apos;s voice and urgency, requesting immediate remote access to a patient&apos;s sensitive records for an &apos;emergency consultation&apos;. The junior doctor, believing it&apos;s a legitimate urgent request, bypasses standard verification protocols and provides access, leading to a data breach.</p>
-                </div>
-              )}
-              <div className="order-2 lg:order-1 relative h-[400px] lg:h-auto min-h-[300px] rounded-lg overflow-hidden shadow-lg group mt-8 lg:mt-0">
-                <Image 
-                  src={`${basePath}/assets/images/pages/genai/content/social_engineering_visual.png`} // Updated image path
-                  alt="AI Social Engineering Visualization"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  unoptimized={true} // Added for static export
-                />
               </div>
             </section>
 
@@ -267,7 +324,6 @@ export default function GenAIContent() {  // Renamed from GenAIPage
             <section id="risk2-data-poisoning" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl shadow-lg border border-teal-200/50">
               <h3 className="text-3xl font-bold text-teal-700 mb-8 flex items-center"><FaDatabase className="mr-3"/>Risk 2: Data Poisoning &amp; Model Evasion</h3>
               
-              {/* Sub-tabs for Risk 2 */}
               <div className="mb-6 flex flex-wrap gap-2 border-b border-teal-200 pb-4">
                 {dataPoisoningSubTabs.map((tab) => (
                   <button
@@ -285,101 +341,108 @@ export default function GenAIContent() {  // Renamed from GenAIPage
                 ))}
               </div>
 
-              {/* Content for Risk 2 Sub-tabs */}
-              {activeDataPoisoningSubTab === 'description' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <p><strong>Data Poisoning:</strong> Involves corrupting the training data of a GenAI model. If malicious data is introduced, the model learns incorrect patterns, leading to biased, inaccurate, or harmful outputs. For example, a diagnostic AI could be poisoned to misdiagnose conditions.</p>
-                  <p className="mt-2"><strong>Model Evasion:</strong> Attackers craft specific inputs (adversarial examples) that appear normal to humans but are designed to trick the AI model into making incorrect classifications or predictions during its operational phase. This could lead to a GenAI tool generating misleading medical advice or failing to identify critical issues.</p>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start mt-6">
+                <div className="lg:col-span-2 prose prose-lg max-w-none prose-headings:text-teal-700 prose-strong:text-gray-700 text-gray-700">
+                  {activeDataPoisoningSubTab === 'description' && (
+                    <>
+                      <h4 className="text-xl font-semibold mb-3 flex items-center"><FaFileAlt className="mr-2 text-teal-600"/>A. Risk Description</h4>
+                      <p><strong>Data Poisoning:</strong> Involves corrupting the training data of a GenAI model. If malicious data is introduced, the model learns incorrect patterns, leading to biased, inaccurate, or harmful outputs. For example, a diagnostic AI could be poisoned to misdiagnose conditions.</p>
+                      <p className="mt-2"><strong>Model Evasion:</strong> Attackers craft specific inputs (adversarial examples) that appear normal to humans but are designed to trick the AI model into making incorrect classifications or predictions during its operational phase. This could lead to a GenAI tool generating misleading medical advice or failing to identify critical issues.</p>
+                    </>
+                  )}
+                  {activeDataPoisoningSubTab === 'vulnerabilities' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaExclamationTriangle className="mr-2 text-orange-500"/>B. Vulnerabilities Exploited</h4>
+                      <ul className="list-disc pl-5 space-y-2">
+                        <li>Reliance on large, externally sourced datasets for training.</li>
+                        <li>Insufficient validation and sanitization of training data.</li>
+                        <li>Complexity of GenAI models making them &apos;black boxes&apos;, hard to inspect for tampering.</li>
+                        <li>Lack of robust defenses against adversarial inputs in deployed models.</li>
+                      </ul>
+                    </>
+                  )}
+                  {activeDataPoisoningSubTab === 'ttps' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaTools className="mr-2 text-gray-600"/>C. Attacker Techniques, Tools &amp; Practices</h4>
+                      <p>Attackers might:</p>
+                      <ul className="list-disc pl-5 space-y-2 mt-2">
+                        <li>Subtly alter medical images in a training set to cause misdiagnosis of a specific condition.</li>
+                        <li>Inject biased text data to make a clinical NLP model produce discriminatory outputs.</li>
+                        <li>Craft specific patient queries that cause a GenAI diagnostic tool to consistently provide incorrect (evasive) advice.</li>
+                        <li>Manipulate inputs to a drug discovery AI to steer it towards ineffective or harmful compounds.</li>
+                      </ul>
+                    </>
+                  )}
+                  {activeDataPoisoningSubTab === 'impact' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaExclamationCircle className="mr-2 text-red-500"/>D. Impact Assessment</h4>
+                      <ul className="list-disc pl-5 space-y-2">
+                        <li>Incorrect medical diagnoses and treatment plans, leading to patient harm.</li>
+                        <li>Compromised integrity of medical research and drug discovery processes.</li>
+                        <li>Erosion of trust in AI-powered healthcare tools.</li>
+                        <li>Legal and regulatory repercussions for the healthcare organization.</li>
+                        <li>Generation of harmful or biased medical content.</li>
+                      </ul>
+                    </>
+                  )}
+                  {activeDataPoisoningSubTab === 'scenario' && (
+                    <>
+                      <h4 className="text-xl font-semibold mt-6 mb-3 flex items-center"><FaRegCommentDots className="mr-2 text-teal-500"/>E. Scenario Example</h4>
+                      <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg shadow-inner">
+                        <p className="text-gray-700">A malicious actor gains access to a dataset used to train a GenAI model for identifying cancerous tumors in medical scans. They subtly alter a small percentage of images, mislabeling benign tumors as malignant and vice-versa. The deployed AI, now poisoned, starts producing a higher rate of false positives and false negatives, leading to unnecessary invasive procedures for some patients and delayed treatment for others, severely impacting patient outcomes and trust in the hospital&apos;s diagnostic capabilities.</p>
+                      </div>
+                    </>
+                  )}
+                  {activeDataPoisoningSubTab === 'cissp' && (
+                    <div className="mt-6">
+                      <h4 className="text-xl font-semibold mb-4 text-teal-700 flex items-center"><FaPuzzlePiece className="mr-2 text-teal-600"/>F. CISSP Domain Alignment</h4>
+                      <p className="mb-4"><strong>Data Poisoning & Model Evasion</strong> attacks target the core of GenAI systems. Aligning mitigation efforts with CISSP domains is key:</p>
+                      <div className="space-y-2">
+                        {dataPoisoningCisspDomains.map(domain => (
+                          <div key={domain.id} className="border border-teal-200 rounded-lg">
+                            <button
+                              onClick={() => toggleDataPoisoningCisspDomain(domain.id)}
+                              className="w-full flex justify-between items-center p-4 bg-teal-100 hover:bg-teal-200 focus:outline-none transition-colors"
+                            >
+                              <span className="font-medium text-teal-700 text-left">{domain.title}</span>
+                              {openDataPoisoningCisspDomain === domain.id ? <FaChevronUp className="text-teal-600" /> : <FaChevronDown className="text-teal-600" />}
+                            </button>
+                            {openDataPoisoningCisspDomain === domain.id && (
+                              <div className="p-4 bg-white border-t border-teal-200">
+                                <p className="text-gray-700 text-sm">{domain.content}</p>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <p className="mt-4 text-sm text-gray-600">Addressing these CISSP domains helps create a multi-layered defense against data poisoning and model evasion attacks, enhancing the trustworthiness and reliability of GenAI systems.</p>
+                    </div>
+                  )}
                 </div>
-              )}
-              {activeDataPoisoningSubTab === 'vulnerabilities' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Reliance on large, externally sourced datasets for training.</li>
-                    <li>Insufficient validation and sanitization of training data.</li>
-                    <li>Complexity of GenAI models making them &apos;black boxes&apos;, hard to inspect for tampering.</li>
-                    <li>Lack of robust defenses against adversarial inputs in deployed models.</li>
-                  </ul>
+                <div className="lg:col-span-1 order-1 lg:order-2 mt-6 lg:mt-0">
+                  <div className="relative h-[300px] lg:h-[350px] rounded-lg overflow-hidden shadow-lg group">
+                    <Image 
+                      src={`${basePath}${genAiRiskImages[activeDataPoisoningSubTab] || genAiRiskImages.description}`}
+                      alt={`Visual for ${activeDataPoisoningSubTab.replace('-', ' ')}`}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      unoptimized={true}
+                    />
+                  </div>
                 </div>
-              )}
-              {activeDataPoisoningSubTab === 'ttps' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <p>Attackers might:
-                    <ul className="list-disc pl-5 space-y-2 mt-2">
-                      <li>Subtly alter medical images in a training set to cause misdiagnosis of a specific condition.</li>
-                      <li>Inject biased text data to make a clinical NLP model produce discriminatory outputs.</li>
-                      <li>Craft specific patient queries that cause a GenAI diagnostic tool to consistently provide incorrect (evasive) advice.</li>
-                      <li>Manipulate inputs to a drug discovery AI to steer it towards ineffective or harmful compounds.</li>
-                    </ul>
-                  </p>
-                </div>
-              )}
-              {activeDataPoisoningSubTab === 'impact' && (
-                <div className="prose prose-lg max-w-none text-gray-700">
-                  <ul className="list-disc pl-5 space-y-2">
-                    <li>Incorrect medical diagnoses and treatment plans, leading to patient harm.</li>
-                    <li>Compromised integrity of medical research and drug discovery processes.</li>
-                    <li>Erosion of trust in AI-powered healthcare tools.</li>
-                    <li>Legal and regulatory repercussions for the healthcare organization.</li>
-                    <li>Generation of harmful or biased medical content.</li>
-                  </ul>
-                </div>
-              )}
-              {activeDataPoisoningSubTab === 'scenario' && (
-                <div className="p-6 bg-teal-50 border border-teal-200 rounded-lg shadow-inner">
-                  <h4 className="text-xl font-semibold text-teal-700 mb-3">Scenario: The Poisoned Diagnostic AI</h4>
-                  <p className="text-gray-700">A malicious actor gains access to a dataset used to train a GenAI model for identifying cancerous tumors in medical scans. They subtly alter a small percentage of images, mislabeling benign tumors as malignant and vice-versa. The deployed AI, now poisoned, starts producing a higher rate of false positives and false negatives, leading to unnecessary invasive procedures for some patients and delayed treatment for others, severely impacting patient outcomes and trust in the hospital&apos;s diagnostic capabilities.</p>
-                </div>
-              )}
-              <div className="relative h-[400px] lg:h-auto min-h-[300px] rounded-lg overflow-hidden shadow-lg group mt-8 lg:mt-0">
-                <Image 
-                  src={`${basePath}/assets/images/pages/genai/content/data_poisoning_visual.png`} // Updated image path
-                  alt="Data Poisoning Visualization"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  unoptimized={true} // Added for static export
-                />
-              </div>
-            </section>
-
-            {/* CISSP Alignment Section */}
-            <section id="cissp-alignment-genai" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gray-50 rounded-xl shadow-lg border border-gray-200/50">
-              <h3 className="text-3xl font-bold text-gray-800 mb-8 flex items-center"><FaBookOpen className="mr-3 text-gray-600"/>CISSP Domain Alignment for GenAI Risks</h3>
-              <p className="text-lg text-gray-700 mb-6">Addressing Generative AI cybersecurity risks aligns with several CISSP domains, emphasizing a holistic security approach:</p>
-              <div className="space-y-6">
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-                  <h4 className="text-xl font-semibold text-indigo-700 mb-2">Security and Risk Management (Domain 1)</h4>
-                  <p className="text-gray-600">Involves identifying, assessing, and mitigating risks associated with GenAI, including data privacy, model integrity, and ethical considerations. Requires establishing governance frameworks for AI.</p>
-                </div>
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-                  <h4 className="text-xl font-semibold text-indigo-700 mb-2">Asset Security (Domain 2)</h4>
-                  <p className="text-gray-600">Protecting data used to train GenAI models (e.g., patient records) and the AI models themselves as critical assets. Includes data classification, handling, and lifecycle management.</p>
-                </div>
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-                  <h4 className="text-xl font-semibold text-indigo-700 mb-2">Software Development Security (Domain 8)</h4>
-                  <p className="text-gray-600">Ensuring secure coding practices in developing or integrating GenAI applications. Includes vulnerability management for AI components and secure software development lifecycle (SSDLC) for AI systems.</p>
-                </div>
-                <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-                  <h4 className="text-xl font-semibold text-indigo-700 mb-2">Identity and Access Management (Domain 5)</h4>
-                  <p className="text-gray-600">Controlling access to GenAI models, their training data, and management interfaces. Preventing unauthorized modifications or misuse of AI capabilities.</p>
-                </div>
-              </div>
-              <div className="mt-10 relative h-[300px] rounded-lg overflow-hidden shadow-md">
-                <Image
-                  src={`${basePath}/assets/images/pages/genai/content/cissp_genai_graphic.png`} // Updated image path
-                  alt="CISSP Domains and GenAI Alignment Graphic"
-                  fill
-                  className="object-contain"
-                  unoptimized={true} // Added for static export
-                />
               </div>
             </section>
 
             {/* Mitigation Strategies Section */}
-            <section id="mitigation-genai" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg border border-green-200/50">
+            <section id="mitigation" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg border border-green-200/50">
               <h3 className="text-3xl font-bold text-green-700 mb-8 flex items-center"><FaShieldAlt className="mr-3"/>Mitigation Strategies for GenAI Risks</h3>
-              <p className="text-lg text-gray-700 mb-6">Effective mitigation requires a multi-layered approach:</p>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="prose prose-lg max-w-none text-gray-700">
+                <p className="mb-6">
+                  Effective mitigation requires a multi-layered approach. While the strategies below offer general guidance, detailed alignment with cybersecurity best practices, including relevant CISSP domains, can be found within the &quot;CISSP Alignment&quot; sub-tab of each specific risk discussed earlier (AI-Powered Social Engineering and Data Poisoning).
+                </p>
+                <p className="mb-6">Key general mitigation strategies include:</p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6 mt-4">
                 <div className="p-6 bg-white rounded-lg shadow-md border border-gray-200">
                   <h4 className="text-xl font-semibold text-green-600 mb-2 flex items-center"><FaCheckCircle className="mr-2"/>Robust Data Governance</h4>
                   <p className="text-gray-600">Implement strict controls over training data, including provenance tracking, bias detection, and sanitization to prevent data poisoning.</p>
@@ -407,12 +470,39 @@ export default function GenAIContent() {  // Renamed from GenAIPage
               </div>
               <div className="mt-10 relative h-[350px] rounded-lg overflow-hidden shadow-md">
                 <Image
-                  src={`${basePath}/assets/images/pages/genai/content/genai_mitigation_framework.png`} // Updated image path
+                  src={`${basePath}/assets/images/pages/genai/content/genai_mitigation_framework.png`}
                   alt="GenAI Mitigation Framework Diagram"
                   fill
                   className="object-cover"
-                  unoptimized={true} // Added for static export
+                  unoptimized={true}
                 />
+              </div>
+            </section>
+
+            {/* Critical Analysis Section - New */}
+            <section id="critical-analysis-genai" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-sky-50 to-blue-50 rounded-xl shadow-lg border border-sky-200/50">
+              <h3 className="text-3xl font-bold text-sky-700 mb-8 flex items-center"><FaBalanceScale className="mr-3"/>Critical Analysis of GenAI in Healthcare</h3>
+              <div className="prose prose-lg max-w-none text-gray-700">
+                <p>
+                  [Placeholder for Critical Analysis content. This section should delve into a deeper critical examination of Generative AI's role in healthcare, considering ethical dilemmas, societal impact, regulatory challenges, and the balance between innovation and risk. It could explore questions like: How do we ensure equitable access to GenAI benefits? What are the long-term implications for the healthcare workforce? How can regulatory frameworks keep pace with rapid technological advancements?]
+                </p>
+                {/* Add more structured content like subheadings, lists, or blockquotes as needed */}
+              </div>
+            </section>
+
+            {/* Solutions & Drawbacks Section - New */}
+            <section id="solutions-drawbacks-genai" className="mb-20 scroll-mt-28 p-8 lg:p-12 bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl shadow-lg border border-amber-200/50">
+              <h3 className="text-3xl font-bold text-amber-700 mb-8 flex items-center"><FaLightbulb className="mr-3"/>Existing Solutions, Proposed Innovations & Their Drawbacks</h3>
+              <div className="prose prose-lg max-w-none text-gray-700">
+                <p>
+                  [Placeholder for Solutions & Drawbacks content. This section should discuss current and proposed solutions to address GenAI risks in healthcare. It should also critically evaluate their potential drawbacks, limitations, and feasibility. Consider aspects like:
+                </p>
+                <ul className="list-disc pl-5 space-y-2 mt-4">
+                  <li>Technical solutions (e.g., advanced encryption, differential privacy, AI for detecting AI-generated disinformation).</li>
+                  <li>Policy and regulatory approaches.</li>
+                  <li>Organisational best practices and training programs.</li>
+                  <li>The challenges in implementing these solutions effectively and at scale.]</li>
+                </ul>
               </div>
             </section>
 
@@ -432,12 +522,12 @@ export default function GenAIContent() {  // Renamed from GenAIPage
             <section id="references" className="scroll-mt-28 p-8 lg:p-12 bg-white rounded-xl shadow-lg border border-gray-200/50">
               <h3 className="text-3xl font-bold text-gray-800 mb-8 flex items-center"><FaLink className="mr-3 text-gray-500"/>References &amp; Further Reading</h3>
               <div className="prose prose-lg max-w-none text-gray-700">
-                <ul className="list-disc pl-5 space-y-2">
-                  <li>National Cyber Security Centre (NCSC) - Guidance on AI Security.</li>
-                  <li>NHS Transformation Directorate - AI Lab and Ethical Frameworks.</li>
-                  <li>Information Commissioner&apos;s Office (ICO) - Guidance on AI and Data Protection.</li>
-                  <li>Academic journals and conference proceedings on AI security and healthcare (e.g., IEEE, ACM).</li>
-                  <li>OWASP Top 10 for Large Language Model Applications.</li>
+                <ul className="list-none pl-0 space-y-3">
+                  {references.map((ref, index) => (
+                    <li key={ref.id || index} className="mb-2" style={{ textIndent: '-1.5em', paddingLeft: '1.5em' }}>
+                      <span dangerouslySetInnerHTML={{ __html: ref.text }} />
+                    </li>
+                  ))}
                 </ul>
               </div>
             </section>

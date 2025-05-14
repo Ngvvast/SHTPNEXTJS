@@ -28,26 +28,38 @@ export default function FactorsSummaryPage() {
 
   const factors = [
     {
-      title: 'COVID-19 Impact',
-      summary: 'The pandemic accelerated digital transformation in healthcare, increasing vulnerabilities. Key risks include heightened phishing attacks and ransomware targeting critical infrastructure.',
-      link: '/factors/covid19',      
-      image: `${basePath}/assets/images/hero/background_placeholder.png`, // Updated hero image
-      icon: <FaVirus className="w-8 h-8 text-red-600" /> // Slightly darker red
+      id: 'covid19',
+      title: 'COVID-19',
+      description: 'Assessing the pandemic\'s impact on cybersecurity in UK healthcare.',
+      image: `${basePath}/assets/images/hero/covid/Frame 118.png`, // Updated image path
+      link: '/factors/covid19',
+      details: "Explore how the rapid shift to remote work, telehealth, and increased reliance on digital infrastructure during the COVID-19 pandemic created new cybersecurity vulnerabilities and attack vectors in the UK healthcare sector. Understand the specific risks, from targeted phishing campaigns exploiting pandemic fears to strains on IT resources, and learn about mitigation strategies to protect patient data and healthcare services.",
+      keyAreas: ['Remote Work Vulnerabilities', 'Telehealth Security', 'Phishing & Social Engineering', 'Data Privacy Concerns', 'Supply Chain Disruptions'],
+      learnMoreLink: '/factors/covid19#learn-more',
+      readMoreLink: '/factors/covid19#case-studies',
     },
     {
-      title: 'Generative AI (GenAI) Risks',
-      summary: 'GenAI introduces challenges like sophisticated social engineering, data poisoning affecting model integrity, prompt injection attacks, and intellectual property concerns.', // Refined summary
-      link: '/factors/genai',      
-      image: `${basePath}/assets/images/hero/genai/AI.png`, // Updated hero image
-      icon: <FaBrain className="w-8 h-8 text-purple-600" /> // Slightly darker purple
+      id: 'genai',
+      title: 'Generative AI',
+      description: 'Analysing the dual role of Generative AI in cybersecurity threats and defenses.',
+      image: `${basePath}/assets/images/hero/genai/AI.png`, // This path was already correct
+      link: '/factors/genai',
+      details: "Delve into the transformative potential and inherent risks of Generative AI in the cybersecurity landscape of UK healthcare. This section examines how AI can be exploited to create sophisticated phishing attacks and deepfakes, or used to enhance threat detection and response. Discover the implications for data integrity, patient privacy, and the development of AI-driven security solutions.",
+      keyAreas: ['AI-Powered Attacks', 'Deepfake Technology', 'Data Poisoning', 'AI for Threat Detection', 'Ethical AI Use'],
+      learnMoreLink: '/factors/genai#learn-more',
+      readMoreLink: '/factors/genai#case-studies',
     },
     {
-      title: 'NIS2 Directive Compliance',
-      summary: 'NIS2 imposes stricter cybersecurity obligations: robust risk management across the supply chain, mandatory incident reporting, and enhanced enforcement with significant penalties.', // Refined summary
-      link: '/factors/nis2',      
-      image: `${basePath}/assets/images/pages/nis2/content/NIs2Hero-bg.png`, // Updated hero image
-      icon: <FaShieldAlt className="w-8 h-8 text-blue-600" /> // Slightly darker blue
-    }
+      id: 'nis2',
+      title: 'NIS2 Directive',
+      description: 'Understanding the new cybersecurity obligations for UK healthcare.',
+      image: `${basePath}/assets/images/hero/nis2/NIS2 DIRECTIVe.png`, // Updated image path
+      link: '/factors/nis2',
+      details: "The NIS2 Directive expands cybersecurity obligations for essential and important entities, including many in the UK healthcare sector. This section breaks down the key requirements of NIS2, such as risk management, incident reporting, and supply chain security. Understand how these regulations aim to bolster cybersecurity resilience across the EU and the implications for UK healthcare organisations post-Brexit.",
+      keyAreas: ['Risk Management Frameworks', 'Incident Reporting Mandates', 'Supply Chain Security', 'Cyber Hygiene Practices', 'Cross-Border Collaboration'],
+      learnMoreLink: '/factors/nis2#learn-more',
+      readMoreLink: '/factors/nis2#case-studies',
+    },
   ];
 
   return (
@@ -103,7 +115,7 @@ export default function FactorsSummaryPage() {
                   </h3>
                 </div>
                 <div className="p-6 md:p-8 flex flex-col flex-grow"> {/* Increased padding */}
-                  <p className="text-gray-700 mb-6 flex-grow text-base leading-relaxed">{factor.summary}</p> {/* Adjusted text color, margin */}
+                  <p className="text-gray-700 mb-6 flex-grow text-base leading-relaxed">{factor.description}</p> {/* Adjusted text color, margin */}
                   <Link 
                     href={factor.link} 
                     className="mt-auto inline-block w-full bg-primary-color text-white px-6 py-3 rounded-lg font-semibold text-center hover:bg-blue-700 transition-colors duration-200 shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" // Added focus states
