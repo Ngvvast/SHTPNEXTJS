@@ -571,7 +571,7 @@ export default function Covid19Page() {
                   <FaLink className="mr-3 text-blue-600"/>Academic & Industry Sources
                 </h3>
                 <div className="prose prose-lg max-w-none">
-                  <ol className="space-y-4 list-decimal pl-5">
+                  <ul className="space-y-4 list-none pl-5">
                     <li>
                       <p>Ghafur, S., Grass, E., Jennings, N.R. and Darzi, A., 2019. The challenges of cybersecurity in health care: the UK National Health Service as a case study. <em>The Lancet Digital Health</em>, 1(1), pp. e10-e12.</p>
                     </li>
@@ -599,7 +599,8 @@ export default function Covid19Page() {
                     <li>
                       <p><strong>NHS Digital.</strong> (2024). &quot;Data Security and Protection Toolkit.&quot; <a href="https://www.dsptoolkit.nhs.uk/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">DSPT Portal</a></p>
                     </li>
-                  </ol>
+                    {/* Removed OpenAI. (2023). *GPT-4*. OpenAI. reference if it existed here */}
+                  </ul>
                 </div>
               </div>
             </div>

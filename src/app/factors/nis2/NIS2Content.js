@@ -9,28 +9,34 @@ import { useState } from 'react';
 
 const references = [
   {
-    id: 'ref-eu-nis2',
-    text: 'European Union (2022). <em>Directive (EU) 2022/2555 of the European Parliament and of the Council of 14 December 2022 on measures for a high common level of cybersecurity across the Union, amending Regulation (EU) No 910/2014 and Directive (EU) 2018/1972, and repealing Directive (EU) 2016/1148 (NIS 2 Directive)</em>. Official Journal of the European Union, L 333/80. Available at: https://eur-lex.europa.eu/eli/dir/2022/2555/oj (Accessed: 14 May 2024).',
+    id: 1,
+    title: "Directive (EU) 2022/2555 of the European Parliament and of the Council of 14 December 2022 on measures for a high common level of cybersecurity across the Union, amending Regulation (EU) No 910/2014 and Directive (EU) 2018/1972, and repealing Directive (EU) 2016/1148 (NIS 2 Directive).",
+    source: "Official Journal of the European Union, L 333/80.",
+    url: "https://eur-lex.europa.eu/eli/dir/2022/2555/oj"
   },
   {
-    id: 'ref-ncsc-nis',
-    text: 'National Cyber Security Centre (NCSC) (2023). <em>The NIS Regulations</em>. [Online]. Available at: https://www.ncsc.gov.uk/collection/nis-directive-and-nis-regulations (Accessed: 14 May 2024).',
+    id: 2,
+    title: "NIS 2 Directive: A high common level of cybersecurity in the EU.",
+    source: "European Commission.",
+    url: "https://digital-strategy.ec.europa.eu/en/policies/nis2-directive"
   },
   {
-    id: 'ref-enisa-nis2',
-    text: 'European Union Agency for Cybersecurity (ENISA) (2023). <em>ENISA NIS Investments Report 2023</em>. [Online]. Available at: https://www.enisa.europa.eu/publications/nis-investments-report-2023 (Accessed: 14 May 2024).',
+    id: 3,
+    title: "The NIS2 Directive: New cybersecurity rules for essential and important entities.",
+    source: "European Union Agency for Cybersecurity (ENISA).",
+    url: "https://www.enisa.europa.eu/topics/nis-directive/nis2-directive"
   },
   {
-    id: 'ref-ukgov-cyber',
-    text: 'UK Government (2024). <em>Cyber security guidance for essential and digital services</em>. [Online]. Available at: https://www.gov.uk/government/collections/cyber-security-guidance-for-essential-and-digital-services (Accessed: 14 May 2024).',
+    id: 4,
+    title: "NIS 2: an explainer.",
+    source: "Fieldfisher.",
+    url: "https://www.fieldfisher.com/en/insights/nis-2-an-explainer"
   },
   {
-    id: 'ref-cisa-sbom',
-    text: 'Cybersecurity and Infrastructure Security Agency (CISA) (2023). <em>Software Bill of Materials (SBOM)</em>. [Online]. Available at: https://www.cisa.gov/sbom (Accessed: 14 May 2024).',
-  },
-  {
-    id: 'ref-techtarget-supplychain',
-    text: 'TechTarget (2023). <em>Supply chain attacks: Definition, examples and prevention tips</em>. SearchSecurity. [Online]. Available at: https://www.techtarget.com/searchsecurity/definition/supply-chain-attack (Accessed: 14 May 2024).',
+    id: 5,
+    title: "What is the NIS2 Directive? Everything you need to know.",
+    source: "IT Governance UK.",
+    url: "https://www.itgovernance.co.uk/nis2-directive"
   }
 ];
 
@@ -621,7 +627,7 @@ export default function NIS2Content() {
                 <ul className="list-none pl-0 space-y-3">
                   {references.map((ref, index) => (
                     <li key={ref.id || index} className="mb-2" style={{ textIndent: '-1.5em', paddingLeft: '1.5em' }}>
-                      <span dangerouslySetInnerHTML={{ __html: ref.text }} />
+                      <span>{ref.title} {ref.source} <a href={ref.url} target="_blank" rel="noopener noreferrer">{ref.url}</a></span>
                     </li>
                   ))}
                 </ul>

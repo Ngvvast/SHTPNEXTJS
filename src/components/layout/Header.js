@@ -62,18 +62,7 @@ const Header = () => {
                 </svg>
               </button>
               <div className="absolute left-0 top-full mt-1 w-64 bg-white shadow-lg rounded-md p-2 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-300 z-50">
-                <Link href="/cyber-response/incident-response" className="block p-2 hover:bg-gray-100 rounded-md text-[14px]">
-                  Incident Response
-                </Link>
-                <Link href="/cyber-response/breach-notification" className="block p-2 hover:bg-gray-100 rounded-md text-[14px]">
-                  Breach Notification
-                </Link>
-                <Link href="/cyber-response/recovery" className="block p-2 hover:bg-gray-100 rounded-md text-[14px]">
-                  Recovery Procedures
-                </Link>
-                <Link href="/cyber-response/threat-hunting" className="block p-2 hover:bg-gray-100 rounded-md text-[14px]">
-                  Threat Hunting
-                </Link>
+                {/* Removed Incident Response and General Incident Response Framework links */}
               </div>
             </div>
 
@@ -154,10 +143,7 @@ const Header = () => {
               <div className="border-b pb-3">
                 <div className="font-medium mb-2 text-[14px] whitespace-nowrap">CYBER ATTACK RESPONSE</div>
                 <div className="pl-4 flex flex-col space-y-2">
-                  <Link href="/cyber-response/incident-response" className="text-gray-600 text-[14px] whitespace-nowrap">Incident Response</Link>
-                  <Link href="/cyber-response/breach-notification" className="text-gray-600 text-[14px] whitespace-nowrap">Breach Notification</Link>
-                  <Link href="/cyber-response/recovery" className="text-gray-600 text-[14px] whitespace-nowrap">Recovery Procedures</Link>
-                  <Link href="/cyber-response/threat-hunting" className="text-gray-600 text-[14px] whitespace-nowrap">Threat Hunting</Link>
+                  {/* Removed Incident Response and General Incident Response Framework links */}
                 </div>
               </div>
               

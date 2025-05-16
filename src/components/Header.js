@@ -1,5 +1,7 @@
 "use client";
 
+// This is the active top header section for the application. It contains the navigation menu and branding.
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -102,20 +104,14 @@ const Header = () => {
               role="menu"
               className="absolute left-0 mt-1 w-64 bg-white shadow-lg rounded-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top scale-95 group-hover:scale-100"
             >
-              <Link href="/factors/covid19#actionable-framework-covid19" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
-                COVID-19: Actionable Tools
+              <Link href="/factors/covid19#mitigation" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
+                COVID-19: Mitigation Strategies
               </Link>
-              <Link href="/factors/genai#interactive-assessment-genai" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
-                GenAI: Risk Self-Assessment
+              <Link href="/factors/genai#mitigation" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
+                GenAI: Mitigation Strategies
               </Link>
-              <Link href="/factors/nis2#interactive-navigator-nis2" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
-                NIS2: Preparedness Navigator
-              </Link>
-              <Link href="/response/framework" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md">
-                General Incident Response Framework
-              </Link>
-              <Link href="/response/incident-response" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md">
-                General Incident Response Steps
+              <Link href="/factors/nis2#mitigation" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
+                NIS2: Mitigation Strategies
               </Link>
             </div>
           </div>
@@ -137,20 +133,14 @@ const Header = () => {
               role="menu"
               className="absolute left-0 mt-1 w-64 bg-white shadow-lg rounded-md p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top scale-95 group-hover:scale-100"
             >
-              <Link href="/products/spectra-assure" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
-                Spectra-Assure Platform
+              <Link href="/factors/covid19#actionable-framework-covid19" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
+                COVID-19: Actionable Framework
               </Link>
-              <Link href="/products/risk-assessment" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md">
-                Risk Assessment Services
+              <Link href="/factors/genai#interactive-assessment-genai" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
+                GenAI: Interactive Risk Assessment
               </Link>
-              <Link href="/products/threat-intelligence" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md">
-                Threat Intelligence Feeds
-              </Link>
-              <Link href="/products/security-operations" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md">
-                Managed Security Operations
-              </Link>
-              <Link href="/services/consulting" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md">
-                Cybersecurity Consulting
+              <Link href="/factors/nis2#interactive-navigator-nis2" role="menuitem" className="text-[14px] block p-2 hover:bg-gray-100 rounded-md font-semibold">
+                NIS2: Preparedness Navigator
               </Link>
             </div>
           </div>
@@ -214,11 +204,9 @@ const Header = () => {
                 </button>
                 {mobileResponseOpen && (
                   <div id="mobile-response-links" className="pl-4 flex flex-col space-y-2 mt-1">
-                    <Link href="/factors/covid19#actionable-framework-covid19" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">COVID-19: Actionable Tools</Link>
-                    <Link href="/factors/genai#interactive-assessment-genai" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">GenAI: Risk Self-Assessment</Link>
-                    <Link href="/factors/nis2#interactive-navigator-nis2" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">NIS2: Preparedness Navigator</Link>
-                    <Link href="/response/framework" className="text-[14px] text-gray-600 hover:text-primary-color py-1">General Incident Response Framework</Link>
-                    <Link href="/response/incident-response" className="text-[14px] text-gray-600 hover:text-primary-color py-1">General Incident Response Steps</Link>
+                    <Link href="/factors/covid19#mitigation" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">COVID-19: Mitigation Strategies</Link>
+                    <Link href="/factors/genai#mitigation" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">GenAI: Mitigation Strategies</Link>
+                    <Link href="/factors/nis2#mitigation" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">NIS2: Mitigation Strategies</Link>
                   </div>
                 )}
               </div>
@@ -237,11 +225,9 @@ const Header = () => {
                 </button>
                 {mobileProductOpen && (
                   <div id="mobile-product-links" className="pl-4 flex flex-col space-y-2 mt-1">
-                    <Link href="/products/spectra-assure" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">Spectra-Assure Platform</Link>
-                    <Link href="/products/risk-assessment" className="text-[14px] text-gray-600 hover:text-primary-color py-1">Risk Assessment Services</Link>
-                    <Link href="/products/threat-intelligence" className="text-[14px] text-gray-600 hover:text-primary-color py-1">Threat Intelligence Feeds</Link>
-                    <Link href="/products/security-operations" className="text-[14px] text-gray-600 hover:text-primary-color py-1">Managed Security Operations</Link>
-                    <Link href="/services/consulting" className="text-[14px] text-gray-600 hover:text-primary-color py-1">Cybersecurity Consulting</Link>
+                    <Link href="/factors/covid19#actionable-framework-covid19" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">COVID-19: Actionable Framework</Link>
+                    <Link href="/factors/genai#interactive-assessment-genai" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">GenAI: Interactive Risk Assessment</Link>
+                    <Link href="/factors/nis2#interactive-navigator-nis2" className="text-[14px] text-gray-600 hover:text-primary-color font-semibold py-1">NIS2: Preparedness Navigator</Link>
                   </div>
                 )}
               </div>
